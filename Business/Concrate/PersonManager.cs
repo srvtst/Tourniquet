@@ -1,4 +1,5 @@
 ﻿using Business.Abstract;
+using DataAccess.Abstract;
 using Entities.Concrate;
 using System;
 using System.Collections.Generic;
@@ -10,6 +11,11 @@ namespace Business.Concrate
 {
     public class PersonManager : IPersonService
     {
+        IPersonDal _personDal;
+        public PersonManager(IPersonDal personDal)
+        {
+            _personDal = personDal;
+        }
         public void Add(Person person)
         {
 
@@ -22,7 +28,7 @@ namespace Business.Concrate
 
         public List<Person> GetAll()
         {
-            throw new NotImplementedException();
+            return _personDal.GetAll();
         }
 
         public Person GetByPerson(int personId)

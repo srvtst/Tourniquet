@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Entities.Concrate;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -8,6 +9,7 @@ namespace DataAccess.Abstract
 {
     public interface ITourniquetDal
     {
-
+        void Entry(Tourniquet tourniquet);
+        void Exit(Tourniquet tourniquet);
     }
 }

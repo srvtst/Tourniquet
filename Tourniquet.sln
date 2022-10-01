@@ -11,7 +11,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DataAccess", "DataAccess\Da
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "UI", "UI\UI.csproj", "{913031CA-4CDE-4B34-9D0F-405FC0E9BB57}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Tourniquet", "Tourniquet\Tourniquet.csproj", "{8C30C057-A073-4E9C-9095-4E39770588CE}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Tourniquet", "Tourniquet\Tourniquet.csproj", "{8C30C057-A073-4E9C-9095-4E39770588CE}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

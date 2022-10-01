@@ -13,14 +13,9 @@ namespace DataAccess.Concrate
 {
     public class TourniquetContext : DbContext
     {
-        IConfiguration _configuration;
-        public TourniquetContext(IConfiguration configuration)
-        {
-            _configuration = configuration;
-        }
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
-            optionsBuilder.UseNpgsql(_configuration.GetConnectionString("Tourniquet"));
+            optionsBuilder.UseNpgsql(@"Host=localhost ; Port=5432; Database=Tourniquet ; Username=postgres ; Password=1");
         }
 
         public DbSet<Person> Persons { get; set; }
