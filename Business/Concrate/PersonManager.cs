@@ -33,25 +33,42 @@ namespace Business.Concrate
             return _personDal.GetAll();
         }
 
+        public Person GetByEmail(string email)
+        {
+            return _personDal.GetByEmail(email);
+        }
+
         public Person GetByPerson(int personId)
         {
-            throw new NotImplementedException();
+            return _personDal.GetByPerson(personId);
         }
 
         public Person Login(UserForLogin userForLogin)
         {
-            throw new NotImplementedException();
+            var userToCheck = _personDal.GetByEmail(userForLogin.Email);
+            if (userToCheck != null)
+            {
+                if (!HashingHelper.VerifyPasswordHash(userForLogin.Password, userToCheck.PasswordSalt, userToCheck.PasswordSalt))
+                {
+                    throw new Exception("Kullanıcı parolası hatalı");
+                }
+                else
+                    return userToCheck;
+            }
+            else
+                throw new Exception("Kullanıcı sistemde mevcut değil.");
         }
 
-        public Person Register(UserForRegister userForRegister , string password)
+        public Person Register(UserForRegister userForRegister, string password)
         {
-            byte[] passwordSalt , passwordHash;
-            HashingHelper.CreatePasswordHash(password,out passwordHash, out passwordSalt);
+            byte[] passwordSalt, passwordHash;
+            HashingHelper.CreatePasswordHash(password, out passwordHash, out passwordSalt);
             var person = new Person
             {
                 FirstName = userForRegister.FirstName,
                 LastName = userForRegister.LastName,
                 Email = userForRegister.Email,
+                PhoneNumber = userForRegister.PhoneNumber,
                 PasswordHash = passwordHash,
                 PasswordSalt = passwordSalt
             };

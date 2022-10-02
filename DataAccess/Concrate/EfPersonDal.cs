@@ -13,7 +13,7 @@ namespace DataAccess.Concrate
     {
         public List<Person> GetAll()
         {
-            using (TourniquetContext context = new TourniquetContext()) 
+            using (TourniquetContext context = new TourniquetContext())
             {
                 return context.Set<Person>().ToList();
             }
@@ -43,6 +43,21 @@ namespace DataAccess.Concrate
             {
                 var deleted = context.Remove(person);
                 context.SaveChanges();
+            }
+        }
+
+        public Person GetByPerson(int personId)
+        {
+            using (TourniquetContext context = new TourniquetContext())
+            {
+                return context.Set<Person>().SingleOrDefault(p => p.Id == personId);
+            }
+        }
+        public Person GetByEmail(string email)
+        {
+            using (TourniquetContext context = new TourniquetContext())
+            {
+                return context.Set<Person>().SingleOrDefault(x => x.Email == email);
             }
         }
     }

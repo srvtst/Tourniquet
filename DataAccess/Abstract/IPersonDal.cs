@@ -14,5 +14,7 @@ namespace DataAccess.Abstract
         void Add(Person person);
         void Update(Person person);
         void Delete(Person person);
+        Person GetByPerson(int personId);
+        Person GetByEmail(string email);
     }
 }

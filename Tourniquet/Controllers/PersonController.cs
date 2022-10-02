@@ -1,4 +1,6 @@
 ﻿using Business.Abstract;
+using Entities.Concrate;
+using Entities.Dto;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
@@ -18,6 +20,13 @@ namespace Tourniquet.Controllers
         public IActionResult GetAll()
         {
             var result = _personService.GetAll();
+            return Ok(result);
+        }
+
+        [HttpPost("register")]
+        public IActionResult Register(UserForRegister userForRegister)
+        {
+            var result = _personService.Register(userForRegister, userForRegister.Password);
             return Ok(result);
         }
     }
