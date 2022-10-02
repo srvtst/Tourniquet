@@ -1,5 +1,6 @@
 ﻿using Business.Abstract;
 using DataAccess.Abstract;
+using Entities.Concrate;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
@@ -15,11 +16,18 @@ namespace Tourniquet.Controllers
             _tourniquetService = tourniquetService;
         }
 
-        //[HttpPost("entry")]
-        //public IActionResult Entry(Tourniquet tourniquet)
-        //{
-        //    _tourniquetService.Entry(tourniquet);
-        //    return Ok(tourniquet);
-        //}
+        [HttpPost("entry")]
+        public IActionResult Entry(Entities.Concrate.Tourniquet tourniquet)
+        {
+            _tourniquetService.Entry(tourniquet);
+            return Ok(tourniquet);
+        }
+
+        [HttpPost("exit")]
+        public IActionResult Exit(Entities.Concrate.Tourniquet tourniquet)
+        {
+            _tourniquetService.Exit(tourniquet);
+            return Ok(tourniquet);
+        }
     }
 }

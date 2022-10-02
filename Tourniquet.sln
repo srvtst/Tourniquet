@@ -13,6 +13,8 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "UI", "UI\UI.csproj", "{9130
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Tourniquet", "Tourniquet\Tourniquet.csproj", "{8C30C057-A073-4E9C-9095-4E39770588CE}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Core", "Core\Core.csproj", "{3E6D90C9-714D-4A75-AF36-4ED4C5B6A4F7}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -39,6 +41,10 @@ Global
 		{8C30C057-A073-4E9C-9095-4E39770588CE}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{8C30C057-A073-4E9C-9095-4E39770588CE}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{8C30C057-A073-4E9C-9095-4E39770588CE}.Release|Any CPU.Build.0 = Release|Any CPU
+		{3E6D90C9-714D-4A75-AF36-4ED4C5B6A4F7}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{3E6D90C9-714D-4A75-AF36-4ED4C5B6A4F7}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{3E6D90C9-714D-4A75-AF36-4ED4C5B6A4F7}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{3E6D90C9-714D-4A75-AF36-4ED4C5B6A4F7}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

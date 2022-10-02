@@ -1,5 +1,6 @@
 ﻿using DataAccess.Abstract;
 using Entities.Concrate;
+using Entities.Dto;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -15,6 +16,33 @@ namespace DataAccess.Concrate
             using (TourniquetContext context = new TourniquetContext()) 
             {
                 return context.Set<Person>().ToList();
+            }
+        }
+
+        public void Add(Person person)
+        {
+            using (TourniquetContext context = new TourniquetContext())
+            {
+                var added = context.Add(person);
+                context.SaveChanges();
+            }
+        }
+
+        public void Update(Person person)
+        {
+            using (TourniquetContext context = new TourniquetContext())
+            {
+                var updated = context.Update(person);
+                context.SaveChanges();
+            }
+        }
+
+        public void Delete(Person person)
+        {
+            using (TourniquetContext context = new TourniquetContext())
+            {
+                var deleted = context.Remove(person);
+                context.SaveChanges();
             }
         }
     }

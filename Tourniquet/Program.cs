@@ -4,7 +4,7 @@ using Business.DependencyResolvers.Autofac;
 
 var builder = WebApplication.CreateBuilder(args);
 
-//autofac ile baðýmlýlýklarý azaltýyorum.
+//autofac ile bagimliliklari azaltiyorum.
 builder.Host.UseServiceProviderFactory(new AutofacServiceProviderFactory()).ConfigureContainer<ContainerBuilder>(builder =>
 {
     builder.RegisterModule(new AutofacBusinessModule());

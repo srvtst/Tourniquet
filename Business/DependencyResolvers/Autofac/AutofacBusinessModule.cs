@@ -17,7 +17,6 @@ namespace Business.DependencyResolvers.Autofac
         protected override void Load(ContainerBuilder builder)
         {
             builder.RegisterType<PersonManager>().As<IPersonService>().SingleInstance();
-            builder.RegisterType<AuthManager>().As<IAuthService>().SingleInstance();
             builder.RegisterType<TourniquetManager>().As<ITourniquetService>().SingleInstance();
             builder.RegisterType<EfPersonDal>().As<IPersonDal>().SingleInstance();
             builder.RegisterType<EfTourniquetDal>().As<ITourniquetDal>().SingleInstance();
