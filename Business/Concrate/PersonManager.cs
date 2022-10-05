@@ -1,5 +1,5 @@
 ﻿using Business.Abstract;
-using Core.Security;
+using Core.Security.Hashing;
 using DataAccess.Abstract;
 using Entities.Concrate;
 using Entities.Dto;
