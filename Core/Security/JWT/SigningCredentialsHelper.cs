@@ -5,7 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Core.Security.JWT
+namespace Core.Security.Jwt
 {
     public class SigningCredentialsHelper
     {

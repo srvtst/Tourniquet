@@ -1,9 +1,9 @@
 using Autofac;
 using Autofac.Extensions.DependencyInjection;
 using Business.DependencyResolvers.Autofac;
-using Core.Security.JWT;
+using Core.Security.Jwt;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
-using System.Configuration;
+using Microsoft.IdentityModel.Tokens;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -30,21 +30,32 @@ if (app.Environment.IsDevelopment())
 }
 app.UseHttpsRedirection();
 
-var tokenOptions = Configuration.GetSection("TokenOptions").Get<TokenOptions>();
+IConfiguration configuration = app.Configuration;
+var tokenOptions = configuration.GetSection("TokenOptions").Get<TokenOptions>();
 
-app.UseAuthentication(JwtBearerDefaults.AuthenticationScheme).AddJwtBearer(options => 
+void ConfigureServices(IServiceCollection services)
 {
-    options.TokenVdalidationParameters = new TokenVdalidationParameters
+    services.AddAuthentication(options =>
     {
-        ValidateIssuer = true,
-        ValidateAudience = true,
-        ValidateSignigKey = true,
-        ValidateLiftetime = true,
-        ValidIssuer = tokenOptions.Issuer,
-        ValidAudience = tokenOptions.Audience,
+        options.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
+        options.DefaultChallengeScheme = JwtBearerDefaults.AuthenticationScheme;
+        options.DefaultScheme = JwtBearerDefaults.AuthenticationScheme;
+    }).AddJwtBearer(options =>
+    {
+        options.TokenValidationParameters = new TokenValidationParameters
+        {
+            ValidateIssuer = true,
+            ValidateAudience = true,
+            ValidateLifetime = true,
+            ValidateIssuerSigningKey = true,
+            ValidIssuer = tokenOptions.Issuer,
+            ValidAudience = tokenOptions.Audience,
+            IssuerSigningKey = SecurityKeyHelper.CreateSecurityKey(tokenOptions.SecurityKey)
+        };
+    });
+}
 
-    };
-});    
+app.UseAuthentication();
 
 app.UseAuthorization();
 

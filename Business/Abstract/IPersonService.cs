@@ -12,7 +12,7 @@ namespace Business.Abstract
     {
         List<Person> GetAll();
         Person GetByPerson(int personId);
-        Person Login(UserForLogin userForLogin);
+        //Person Login(UserForLogin userForLogin);
         Person Register(UserForRegister userForRegister, string password);
         void Add(Person person);
         void Update(Person person);

@@ -1,6 +1,7 @@
 ﻿using Autofac;
 using Business.Abstract;
 using Business.Concrate;
+using Core.Security.Jwt;
 using DataAccess.Abstract;
 using DataAccess.Concrate;
 using System;
@@ -20,6 +21,7 @@ namespace Business.DependencyResolvers.Autofac
             builder.RegisterType<TourniquetManager>().As<ITourniquetService>().SingleInstance();
             builder.RegisterType<EfPersonDal>().As<IPersonDal>().SingleInstance();
             builder.RegisterType<EfTourniquetDal>().As<ITourniquetDal>().SingleInstance();
+            builder.RegisterType<JwtHelper>().As<ITokenHelper>().SingleInstance();
         }
     }
 }

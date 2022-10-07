@@ -20,8 +20,5 @@ namespace DataAccess.Concrate
 
         public DbSet<Person> Persons { get; set; }
         public DbSet<Tourniquet> Tourniquets { get; set; }
-
-        public DbSet<Claim> Claims { get; set; }
-        public DbSet<PersonOperationClaim> PersonOperationClaims { get; set; }
     }
 }
