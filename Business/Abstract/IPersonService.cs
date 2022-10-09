@@ -1,4 +1,5 @@
-﻿using Entities.Concrate;
+﻿using Core.Security.Jwt;
+using Entities.Concrate;
 using Entities.Dto;
 using System;
 using System.Collections.Generic;
@@ -10,10 +11,9 @@ namespace Business.Abstract
 {
     public interface IPersonService
     {
-        List<Person> GetAll();
-        Person GetByPerson(int personId);
-        //Person Login(UserForLogin userForLogin);
+        Person Login(UserForLogin userForLogin);
         Person Register(UserForRegister userForRegister, string password);
+        AccessToken CreateToken(Person person);
         void Add(Person person);
         void Update(Person person);
         void Delete(Person person);

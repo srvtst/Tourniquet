@@ -18,17 +18,19 @@ namespace Tourniquet.Controllers
             _personService = personService;
         }
 
-        [HttpGet("getall")]
-        public IActionResult GetAll()
-        {
-            var result = _personService.GetAll();
-            return Ok(result);
-        }
-
         [HttpPost("register")]
         public IActionResult Register(UserForRegister userForRegister)
         {
             var result = _personService.Register(userForRegister, userForRegister.Password);
+            return Ok(result);
+        }
+
+        [HttpPost("login")]
+        public IActionResult Login(UserForLogin userForLogin)
+        {
+            var userToLogin = _personService.Login(userForLogin);
+            
+            var result = _personService.CreateToken(userToLogin);
             return Ok(result);
         }
     }

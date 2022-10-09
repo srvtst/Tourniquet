@@ -1,11 +1,16 @@
-using Autofac;
+﻿using Autofac;
 using Autofac.Extensions.DependencyInjection;
 using Business.DependencyResolvers.Autofac;
 using Core.Security.Jwt;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
-using Microsoft.IdentityModel.Tokens;
+
+IConfiguration configuration = new ConfigurationBuilder()
+                            .AddJsonFile("appsettings.json")
+                            .Build();
 
 var builder = WebApplication.CreateBuilder(args);
+
+builder.Services.AddHttpContextAccessor();
 
 //autofac ile bagimliliklari azaltiyorum.
 builder.Host.UseServiceProviderFactory(new AutofacServiceProviderFactory()).ConfigureContainer<ContainerBuilder>(builder =>
@@ -13,7 +18,23 @@ builder.Host.UseServiceProviderFactory(new AutofacServiceProviderFactory()).Conf
     builder.RegisterModule(new AutofacBusinessModule());
 });
 
-// Add services to the container.
+
+var tokenOptions = configuration.GetSection("TokenOptions").Get<TokenOptions>();
+
+builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
+    .AddJwtBearer(options =>
+    {
+        options.TokenValidationParameters = new()
+        {
+            ValidateAudience = true,
+            ValidateIssuer = true,
+            ValidateLifetime = true,
+            ValidateIssuerSigningKey = true,
+            ValidAudience = tokenOptions.Audience,
+            ValidIssuer = tokenOptions.Issuer,
+            IssuerSigningKey = SecurityKeyHelper.CreateSecurityKey(tokenOptions.SecurityKey)
+        };
+    });
 
 builder.Services.AddControllers();
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
@@ -30,30 +51,6 @@ if (app.Environment.IsDevelopment())
 }
 app.UseHttpsRedirection();
 
-IConfiguration configuration = app.Configuration;
-var tokenOptions = configuration.GetSection("TokenOptions").Get<TokenOptions>();
-
-void ConfigureServices(IServiceCollection services)
-{
-    services.AddAuthentication(options =>
-    {
-        options.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
-        options.DefaultChallengeScheme = JwtBearerDefaults.AuthenticationScheme;
-        options.DefaultScheme = JwtBearerDefaults.AuthenticationScheme;
-    }).AddJwtBearer(options =>
-    {
-        options.TokenValidationParameters = new TokenValidationParameters
-        {
-            ValidateIssuer = true,
-            ValidateAudience = true,
-            ValidateLifetime = true,
-            ValidateIssuerSigningKey = true,
-            ValidIssuer = tokenOptions.Issuer,
-            ValidAudience = tokenOptions.Audience,
-            IssuerSigningKey = SecurityKeyHelper.CreateSecurityKey(tokenOptions.SecurityKey)
-        };
-    });
-}
 
 app.UseAuthentication();
 

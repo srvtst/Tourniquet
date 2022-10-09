@@ -1,6 +1,7 @@
 ﻿using Entities.Concrate;
 using Microsoft.Extensions.Configuration;
 using System.IdentityModel.Tokens.Jwt;
+using System.Security.Claims;
 
 namespace Core.Security.Jwt
 {
@@ -20,6 +21,7 @@ namespace Core.Security.Jwt
             _tokenExpiration = DateTime.Now.AddMinutes(_tokenOptions.TokenExpiration);
             var key = SecurityKeyHelper.CreateSecurityKey(_tokenOptions.SecurityKey);
             var signingCredentials = SigningCredentialsHelper.CreateSigningCredentials(key);
+
             JwtSecurityToken securityToken = new JwtSecurityToken(
                 issuer: _tokenOptions.Issuer,
                 audience: _tokenOptions.Audience,
