@@ -20,14 +20,14 @@ namespace Tourniquet.Controllers
         public IActionResult Entry(Entities.Concrate.Tourniquet tourniquet)
         {
             _tourniquetService.Entry(tourniquet);
-            return Ok(tourniquet);
+            return Ok("Turnikeden Giriş Yapıldı");
         }
 
         [HttpPost("exit")]
         public IActionResult Exit(Entities.Concrate.Tourniquet tourniquet)
         {
             _tourniquetService.Exit(tourniquet);
-            return Ok(tourniquet);
+            return Ok("Turnikeden Çıkış Yapıldı");
         }
     }
 }

@@ -12,6 +12,6 @@ namespace Entities.Concrate
         public int Id { get; set; }
         public int PersonId { get; set; }
         public DateTime Date { get; set; }
-
+        public bool Status { get; set; }
     }
 }

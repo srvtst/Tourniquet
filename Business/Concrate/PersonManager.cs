@@ -4,6 +4,7 @@ using Core.Security.Jwt;
 using DataAccess.Abstract;
 using Entities.Concrate;
 using Entities.Dto;
+using NLog;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -45,16 +46,19 @@ namespace Business.Concrate
 
         public Person Login(UserForLogin userForLogin)
         {
+            var logger = NLog.LogManager.GetCurrentClassLogger();
 
             var userToCheck = _personDal.GetByEmail(userForLogin.Email);
             if (userToCheck != null)
             {
                 if (!HashingHelper.VerifyPasswordHash(userForLogin.Password, userToCheck.PasswordSalt, userToCheck.PasswordHash))
                 {
+                    logger.Log(LogLevel.Error, "Kullanıcı şifresi hatalı");
                     throw new Exception("Kullanıcı parolası hatalı");
                 }
                 else 
                 {
+                    logger.Log(LogLevel.Info, "Kullanıcı başarılı olarak giriş sağladı");
                     return userToCheck;
                 }
             }
