@@ -1,4 +1,5 @@
 ﻿using Business.Abstract;
+using Core.RabbitMQ.Abstract;
 using DataAccess.Abstract;
 using Entities.Concrate;
 using System;
@@ -12,6 +13,7 @@ namespace Business.Concrate
     public class TourniquetManager : ITourniquetService
     {
         ITourniquetDal _tourniquetDal;
+        IPublisherService _publisherService;
         public TourniquetManager(ITourniquetDal tourniquetDal)
         {
             _tourniquetDal = tourniquetDal;
@@ -20,6 +22,11 @@ namespace Business.Concrate
         public void Entry(Tourniquet tourniquet)
         {
             _tourniquetDal.Entry(tourniquet);
+            if (tourniquet.Status == true)
+            {
+                string message = "Giriş Kuyruğu";
+               // _publisherService.Enqueue<Tourniquet>(tourniquet, message);
+            }
         }
 
         public void Exit(Tourniquet tourniquet)

@@ -1,4 +1,5 @@
 ﻿using Business.Abstract;
+using Core.RabbitMQ.Abstract;
 using DataAccess.Abstract;
 using Entities.Concrate;
 using Microsoft.AspNetCore.Http;

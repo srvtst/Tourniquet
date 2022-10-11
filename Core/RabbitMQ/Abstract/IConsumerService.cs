@@ -7,8 +7,8 @@ using System.Threading.Tasks;
 
 namespace Core.RabbitMQ.Abstract
 {
-    public interface IPublisherService
+    public interface IConsumerService
     {
-        void Enqueue<T>(IEnumerable<T> queueData, string queueName) where T : class, new();
+        void Start(Tourniquet tourniquet);
     }
 }

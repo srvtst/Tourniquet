@@ -1,6 +1,8 @@
 ﻿using Autofac;
 using Autofac.Extensions.DependencyInjection;
 using Business.DependencyResolvers.Autofac;
+using Core.RabbitMQ.Abstract;
+using Core.RabbitMQ.Concrate;
 using Core.Security.Jwt;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 
@@ -50,7 +52,6 @@ if (app.Environment.IsDevelopment())
     app.UseSwaggerUI();
 }
 app.UseHttpsRedirection();
-
 
 app.UseAuthentication();
 
