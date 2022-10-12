@@ -11,11 +11,20 @@ namespace DataAccess.Concrate
 {
     public class EfPersonDal : IPersonDal
     {
-        public List<Person> GetAll()
+
+        public void Delete(Person person)
         {
             using (TourniquetContext context = new TourniquetContext())
             {
-                return context.Set<Person>().ToList();
+                var deleted = context.Remove(person);
+                context.SaveChanges();
+            }
+        }
+        public Person GetByEmail(string email)
+        {
+            using (TourniquetContext context = new TourniquetContext())
+            {
+                return context.Set<Person>().SingleOrDefault(x => x.Email == email);
             }
         }
 
@@ -34,30 +43,6 @@ namespace DataAccess.Concrate
             {
                 var updated = context.Update(person);
                 context.SaveChanges();
-            }
-        }
-
-        public void Delete(Person person)
-        {
-            using (TourniquetContext context = new TourniquetContext())
-            {
-                var deleted = context.Remove(person);
-                context.SaveChanges();
-            }
-        }
-
-        public Person GetByPerson(int personId)
-        {
-            using (TourniquetContext context = new TourniquetContext())
-            {
-                return context.Set<Person>().SingleOrDefault(p => p.Id == personId);
-            }
-        }
-        public Person GetByEmail(string email)
-        {
-            using (TourniquetContext context = new TourniquetContext())
-            {
-                return context.Set<Person>().SingleOrDefault(x => x.Email == email);
             }
         }
     }

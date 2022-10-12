@@ -40,7 +40,7 @@ namespace Core.Mailing.Concrate
                 //ssl kullanıp kullanılmayacağını belirtiyoruz.
                 EnableSsl = _smtpConfig.UseSSL,
                 //mail gönderenin kimlik doğrulaması.
-                Credentials = new NetworkCredential(_smtpConfig.UserName,_smtpConfig.Password)
+                Credentials = new NetworkCredential(_smtpConfig.UserName, _smtpConfig.Password)
             };
             await smtpClient.SendMailAsync(mailMessageData);
         }

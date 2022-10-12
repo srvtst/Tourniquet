@@ -20,5 +20,7 @@ namespace Core.RabbitMQ.Concrate
         public string UserName => _configuration.GetSection("RabbitMQConfiguration:UserName").Value;
 
         public string Password => _configuration.GetSection("RabbitMQConfiguration:Password").Value;
+
+        public int Port => Convert.ToInt32(_configuration.GetSection("RabbitMQConfiguration : Port").Value);
     }
 }

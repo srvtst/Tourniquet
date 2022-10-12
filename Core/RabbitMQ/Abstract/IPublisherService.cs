@@ -9,6 +9,6 @@ namespace Core.RabbitMQ.Abstract
 {
     public interface IPublisherService
     {
-        void Enqueue<T>(IEnumerable<T> queueData, string queueName) where T : class, new();
+        void Enqueue(Tourniquet tourniquet);
     }
 }

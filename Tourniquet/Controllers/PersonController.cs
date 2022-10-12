@@ -1,6 +1,7 @@
 ﻿using Business.Abstract;
 using Entities.Concrate;
 using Entities.Dto;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
@@ -21,7 +22,8 @@ namespace Tourniquet.Controllers
         [HttpPost("register")]
         public IActionResult Register(UserForRegister userForRegister)
         {
-            var result = _personService.Register(userForRegister, userForRegister.Password);
+            var userToRegister = _personService.Register(userForRegister, userForRegister.Password);
+            var result = _personService.CreateToken(userToRegister);
             return Ok(result);
         }
 
@@ -29,9 +31,16 @@ namespace Tourniquet.Controllers
         public IActionResult Login(UserForLogin userForLogin)
         {
             var userToLogin = _personService.Login(userForLogin);
-            
             var result = _personService.CreateToken(userToLogin);
             return Ok(result);
+        }
+
+        [Authorize]
+        [HttpPost("delete")]
+        public IActionResult Delete(Person person)
+        {
+            _personService.Delete(person);
+            return Ok("Kullanıcı Başarılı Olarak Sistemden Silinmiştir.");
         }
     }
 }

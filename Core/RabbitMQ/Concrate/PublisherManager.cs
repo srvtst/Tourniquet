@@ -23,7 +23,7 @@ namespace Core.RabbitMQ.Concrate
         //Enqueue : sıraya almak
         //queueName : Queue kuyrukta hangi isimde tutulacağı bilgisi operasyon istek zamanı gönderilebilir.
         //queueDat : Herhangi bir tipte gönderilebilir where koşullaırına uyan
-        public void Enqueue<T>(IEnumerable<T> queueData, string queueName) where T : class, new()
+        public void Enqueue(Tourniquet tourniquet)
         {
             using (var connection = _rabbitMQService.GetConnection())
             using (var channel = connection.CreateModel())
@@ -33,7 +33,7 @@ namespace Core.RabbitMQ.Concrate
                 //autoDelete: En son bir abonelik iptal edildiğinde en az bir müşteriye sahip olan kuyruk silinir
                 //arguments: İsteğe bağlı; eklentiler tarafından kullanılır ve TTL mesajı, kuyruk uzunluğu sınırı, vb. özellikler tanımlanır.
                 //QueueDeclare : Oluşturulacak olan queue' nin ismi tanımlanır.
-                channel.QueueDeclare(queue: queueName,
+                channel.QueueDeclare(queue: "Tourniquet",
                                      durable: false,
                                      exclusive: false,
                                      autoDelete: false,
@@ -42,15 +42,11 @@ namespace Core.RabbitMQ.Concrate
                 //RabbitMQ veri byte[] olarak tutulur.
                 //BasicPublish() methodundaki routingKey : Girilen key’e göre ilgili queue’ye gidilmesi sağlanır. 
                 //body: Queue’ye gönderilecek mesaj byte[] tipinde gönderilir.
-                foreach (var queue in queueData)
-                {
-                    string message = JsonConvert.SerializeObject(queue);
-                    var body = Encoding.UTF8.GetBytes(message);
-                    channel.BasicPublish(exchange: "",
-                                         routingKey: "Tourniquet",
-                                         body: body,
-                                         basicProperties: null);
-                }
+                var body = Encoding.UTF8.GetBytes(JsonConvert.SerializeObject(tourniquet));
+                channel.BasicPublish(exchange: "",
+                                     routingKey: "Tourniquet",
+                                     body: body,
+                                     basicProperties: channel.CreateBasicProperties());
             }
         }
     }

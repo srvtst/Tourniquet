@@ -1,16 +1,18 @@
 ﻿using Autofac;
 using Autofac.Extensions.DependencyInjection;
 using Business.DependencyResolvers.Autofac;
-using Core.RabbitMQ.Abstract;
-using Core.RabbitMQ.Concrate;
 using Core.Security.Jwt;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
+using NLog.Web;
 
 IConfiguration configuration = new ConfigurationBuilder()
                             .AddJsonFile("appsettings.json")
                             .Build();
 
 var builder = WebApplication.CreateBuilder(args);
+
+//builder.Logging.SetMinimumLevel(Microsoft.Extensions.Logging.LogLevel.Trace);
+//builder.Host.UseNLog();
 
 builder.Services.AddHttpContextAccessor();
 
@@ -19,7 +21,6 @@ builder.Host.UseServiceProviderFactory(new AutofacServiceProviderFactory()).Conf
 {
     builder.RegisterModule(new AutofacBusinessModule());
 });
-
 
 var tokenOptions = configuration.GetSection("TokenOptions").Get<TokenOptions>();
 

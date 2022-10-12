@@ -14,9 +14,9 @@ namespace Business.Abstract
         Person Login(UserForLogin userForLogin);
         Person Register(UserForRegister userForRegister, string password);
         AccessToken CreateToken(Person person);
+        Person GetByEmail(string email);
         void Add(Person person);
         void Update(Person person);
         void Delete(Person person);
-        Person GetByEmail(string email);
     }
 }

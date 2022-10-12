@@ -10,11 +10,9 @@ namespace DataAccess.Abstract
 {
     public interface IPersonDal
     {
-        List<Person> GetAll();
         void Add(Person person);
         void Update(Person person);
         void Delete(Person person);
-        Person GetByPerson(int personId);
         Person GetByEmail(string email);
     }
 }

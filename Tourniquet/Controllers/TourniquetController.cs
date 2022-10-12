@@ -2,6 +2,7 @@
 using Core.RabbitMQ.Abstract;
 using DataAccess.Abstract;
 using Entities.Concrate;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
@@ -17,6 +18,7 @@ namespace Tourniquet.Controllers
             _tourniquetService = tourniquetService;
         }
 
+        [Authorize]
         [HttpPost("entry")]
         public IActionResult Entry(Entities.Concrate.Tourniquet tourniquet)
         {
@@ -24,11 +26,28 @@ namespace Tourniquet.Controllers
             return Ok("Turnikeden Giriş Yapıldı");
         }
 
+        [Authorize]
         [HttpPost("exit")]
         public IActionResult Exit(Entities.Concrate.Tourniquet tourniquet)
         {
             _tourniquetService.Exit(tourniquet);
             return Ok("Turnikeden Çıkış Yapıldı");
+        }
+
+        [Authorize]
+        [HttpGet("getDay")]
+        public IActionResult GetDayTourniquet(DateTime dateTime)
+        {
+            var result = _tourniquetService.GetDayTourniquet(dateTime);
+            return Ok(result);
+        }
+
+        [Authorize]
+        [HttpGet("getMonth")]
+        public IActionResult GetMonthTourniquet(DateTime dateTime)
+        {
+            var result = _tourniquetService.GetMonthTourniquet(dateTime);
+            return Ok(result);
         }
     }
 }

@@ -11,5 +11,6 @@ namespace Core.RabbitMQ.Abstract
         string HostName { get; }
         string UserName { get; }
         string Password { get; }
+        int Port { get; }
     }
 }
