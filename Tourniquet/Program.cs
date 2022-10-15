@@ -1,9 +1,10 @@
 ﻿using Autofac;
 using Autofac.Extensions.DependencyInjection;
 using Business.DependencyResolvers.Autofac;
+using Core.Caching.Abstract;
+using Core.Caching.Concrate;
 using Core.Security.Jwt;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
-using NLog.Web;
 
 IConfiguration configuration = new ConfigurationBuilder()
                             .AddJsonFile("appsettings.json")
@@ -11,8 +12,8 @@ IConfiguration configuration = new ConfigurationBuilder()
 
 var builder = WebApplication.CreateBuilder(args);
 
-//builder.Logging.SetMinimumLevel(Microsoft.Extensions.Logging.LogLevel.Trace);
-//builder.Host.UseNLog();
+//AddScoped hizmeti tek bir isteğin ömrü olan kapsamlı bir süreyle kaydeder.
+builder.Services.AddScoped<ICacheManager, MemoryCacheManager>();
 
 builder.Services.AddHttpContextAccessor();
 

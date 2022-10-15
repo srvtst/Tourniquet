@@ -31,6 +31,7 @@ namespace Tourniquet.Controllers
         public IActionResult Exit(Entities.Concrate.Tourniquet tourniquet)
         {
             _tourniquetService.Exit(tourniquet);
+
             return Ok("Turnikeden Çıkış Yapıldı");
         }
 
@@ -47,6 +48,13 @@ namespace Tourniquet.Controllers
         public IActionResult GetMonthTourniquet(DateTime dateTime)
         {
             var result = _tourniquetService.GetMonthTourniquet(dateTime);
+            return Ok(result);
+        }
+
+        [HttpGet("getall")]
+        public IActionResult GetAll()
+        {
+            var result = _tourniquetService.GetAll();
             return Ok(result);
         }
     }

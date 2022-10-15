@@ -13,6 +13,7 @@ namespace DataAccess.Abstract
         void Entry(Tourniquet tourniquet);
         void Exit(Tourniquet tourniquet);
         Tourniquet GetByTourniquet(int id);
+        List<Tourniquet> GetAll();
         List<Tourniquet> GetDayTourniquet(DateTime dateTime);
         List<Tourniquet> GetMonthTourniquet(DateTime dateTime);
     }

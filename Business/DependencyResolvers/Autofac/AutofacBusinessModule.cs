@@ -1,6 +1,8 @@
 ﻿using Autofac;
 using Business.Abstract;
 using Business.Concrate;
+using Core.Caching.Abstract;
+using Core.Caching.Concrate;
 using Core.Mailing.Abstract;
 using Core.Mailing.Concrate;
 using Core.RabbitMQ.Abstract;
