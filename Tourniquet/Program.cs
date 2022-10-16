@@ -12,8 +12,8 @@ IConfiguration configuration = new ConfigurationBuilder()
 
 var builder = WebApplication.CreateBuilder(args);
 
-//AddScoped hizmeti tek bir isteğin ömrü olan kapsamlı bir süreyle kaydeder.
-builder.Services.AddScoped<ICacheManager, MemoryCacheManager>();
+builder.Services.AddMemoryCache();
+builder.Services.AddSingleton<ICacheManager, MemoryCacheManager>();
 
 builder.Services.AddHttpContextAccessor();
 

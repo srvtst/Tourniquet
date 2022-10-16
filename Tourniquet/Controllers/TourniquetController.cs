@@ -18,7 +18,7 @@ namespace Tourniquet.Controllers
             _tourniquetService = tourniquetService;
         }
 
-        [Authorize]
+        //[Authorize]
         [HttpPost("entry")]
         public IActionResult Entry(Entities.Concrate.Tourniquet tourniquet)
         {
@@ -26,7 +26,7 @@ namespace Tourniquet.Controllers
             return Ok("Turnikeden Giriş Yapıldı");
         }
 
-        [Authorize]
+        //[Authorize]
         [HttpPost("exit")]
         public IActionResult Exit(Entities.Concrate.Tourniquet tourniquet)
         {
@@ -35,7 +35,7 @@ namespace Tourniquet.Controllers
             return Ok("Turnikeden Çıkış Yapıldı");
         }
 
-        [Authorize]
+        //[Authorize]
         [HttpGet("getDay")]
         public IActionResult GetDayTourniquet(DateTime dateTime)
         {
@@ -43,7 +43,7 @@ namespace Tourniquet.Controllers
             return Ok(result);
         }
 
-        [Authorize]
+        //[Authorize]
         [HttpGet("getMonth")]
         public IActionResult GetMonthTourniquet(DateTime dateTime)
         {

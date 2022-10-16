@@ -10,8 +10,9 @@ namespace Core.Caching.Abstract
     public interface ICacheManager
     {
         T Get<T>(string key);
+        object Get(string key);
         void Remove(string key);
-        ICacheEntry Create(object value);
-        bool IsThere(object key);
+        void Add(string key, object value, int duration);
+        bool IsThere(string key);
     }
 }

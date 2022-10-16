@@ -16,9 +16,10 @@ namespace Core.Mailing.Concrate
         IConfiguration _configuration;
         SmtpConfig _smtpConfig;
         IMailMessage _mailMessage;
-        public MailSenderManager(IConfiguration configuration)
+        public MailSenderManager(IConfiguration configuration , IMailMessage mailMessage)
         {
             _configuration = configuration;
+            _mailMessage = mailMessage;
             _smtpConfig = _configuration.GetSection("Smtp").Get<SmtpConfig>();
         }
 
