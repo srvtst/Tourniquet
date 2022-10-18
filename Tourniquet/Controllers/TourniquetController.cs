@@ -1,9 +1,4 @@
 ﻿using Business.Abstract;
-using Core.RabbitMQ.Abstract;
-using DataAccess.Abstract;
-using Entities.Concrate;
-using Microsoft.AspNetCore.Authorization;
-using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Tourniquet.Controllers

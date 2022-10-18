@@ -3,14 +3,8 @@ using Core.Caching.Abstract;
 using Core.RabbitMQ.Abstract;
 using DataAccess.Abstract;
 using Entities.Concrate;
-using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
-using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.Reflection;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Business.Concrate
 {
@@ -18,10 +12,12 @@ namespace Business.Concrate
     {
         ITourniquetDal _tourniquetDal;
         ICacheManager _cacheManager;
-        public TourniquetManager(ITourniquetDal tourniquetDal, ICacheManager cacheManager)
+        ILogger<Tourniquet> _logger;
+        public TourniquetManager(ITourniquetDal tourniquetDal, ICacheManager cacheManager, ILogger<Tourniquet> logger)
         {
             _tourniquetDal = tourniquetDal;
             _cacheManager = cacheManager;
+            _logger = logger;
         }
 
         public void Entry(Tourniquet tourniquet)
@@ -35,6 +31,7 @@ namespace Business.Concrate
                 _cacheManager.Remove(key);
             }
             _tourniquetDal.Entry(tourniquet);
+            _logger.LogInformation("Turnikeden giriş yapıldı");
         }
 
         public void Exit(Tourniquet tourniquet)
@@ -51,6 +48,7 @@ namespace Business.Concrate
                     _cacheManager.Remove(key);
                 }
                 _tourniquetDal.Exit(tourniquet);
+                _logger.LogInformation("Turnikeden çıkış yapıldı");
             }
         }
 
@@ -64,10 +62,15 @@ namespace Business.Concrate
             {
                 var result = _tourniquetDal.GetAll();
                 _cacheManager.Add(key, result, 40);
+                _logger.LogInformation("Veri tabanından listeleme yapıldı.");
                 return result;
             }
             else
+            {
+                _logger.LogInformation("Cache ten listeleme yapıldı.");
                 return _cacheManager.Get<List<Tourniquet>>(key);
+            }
+
         }
 
         public Tourniquet GetByTourniquet(int id)

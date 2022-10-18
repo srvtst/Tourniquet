@@ -5,15 +5,22 @@ using Core.Caching.Abstract;
 using Core.Caching.Concrate;
 using Core.Security.Jwt;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
+using NLog;
+using NLog.Web;
 
 IConfiguration configuration = new ConfigurationBuilder()
                             .AddJsonFile("appsettings.json")
                             .Build();
 
+var logger = LogManager.Setup().LoadConfigurationFromAppSettings().GetCurrentClassLogger();
+
 var builder = WebApplication.CreateBuilder(args);
 
 builder.Services.AddMemoryCache();
 builder.Services.AddSingleton<ICacheManager, MemoryCacheManager>();
+
+builder.Logging.ClearProviders();
+builder.Host.UseNLog();
 
 builder.Services.AddHttpContextAccessor();
 

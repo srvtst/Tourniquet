@@ -1,10 +1,10 @@
 ﻿using Business.Abstract;
-using Core.RabbitMQ.Abstract;
 using Core.Security.Hashing;
 using Core.Security.Jwt;
 using DataAccess.Abstract;
 using Entities.Concrate;
 using Entities.Dto;
+using Microsoft.Extensions.Logging;
 
 namespace Business.Concrate
 {
@@ -12,10 +12,12 @@ namespace Business.Concrate
     {
         ITokenHelper _tokenHelper;
         IPersonDal _personDal;
-        public PersonManager(IPersonDal personDal, ITokenHelper tokenHelper)
+        ILogger<Person> _logger;
+        public PersonManager(IPersonDal personDal, ITokenHelper tokenHelper, ILogger<Person> logger)
         {
             _tokenHelper = tokenHelper;
             _personDal = personDal;
+            _logger = logger;
         }
 
         public void Add(Person person)
@@ -46,7 +48,7 @@ namespace Business.Concrate
             {
                 if (!HashingHelper.VerifyPasswordHash(userForLogin.Password, userToCheck.PasswordSalt, userToCheck.PasswordHash))
                 {
-                    throw new Exception("Kullanıcı parolası hatalı.");
+                    throw new Exception("Kullanıcı parolası hatalı");
                 }
                 else
                 {
