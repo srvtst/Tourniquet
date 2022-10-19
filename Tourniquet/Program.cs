@@ -23,7 +23,7 @@ builder.Services.AddMassTransit(services =>
 {
     services.AddScoped<IPublisherService , PublisherManager>();
     services.AddScoped<IRabbitMQService , RabbitMQManager>();
-    services.AddScoped<IConsumerService, ConsumerManager>();
+    services.AddConsumer<ConsumerManager>();
 });
 
 builder.Services.AddMemoryCache();

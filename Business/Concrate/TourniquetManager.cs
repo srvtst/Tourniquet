@@ -14,8 +14,7 @@ namespace Business.Concrate
         ICacheManager _cacheManager;
         ILogger<Tourniquet> _logger;
         IPublisherService _publisherService;
-        public TourniquetManager(ITourniquetDal tourniquetDal, ICacheManager cacheManager, ILogger<Tourniquet> logger , 
-            IPublisherService publisherService)
+        public TourniquetManager(ITourniquetDal tourniquetDal, ICacheManager cacheManager, ILogger<Tourniquet> logger, IPublisherService publisherService)
         {
             _tourniquetDal = tourniquetDal;
             _cacheManager = cacheManager;

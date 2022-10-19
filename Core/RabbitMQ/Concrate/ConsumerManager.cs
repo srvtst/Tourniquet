@@ -5,6 +5,7 @@ using MassTransit;
 using Newtonsoft.Json;
 using RabbitMQ.Client;
 using RabbitMQ.Client.Events;
+using System.Net.Mail;
 using System.Text;
 
 namespace Core.RabbitMQ.Concrate
@@ -19,7 +20,7 @@ namespace Core.RabbitMQ.Concrate
             _mailSender = mailSender;
         }
 
-        public void Start(IMailMessage mailMessage)
+        public void Start(MailMessage mailMessage)
         {
             using (var connection = _rabbitMqService.GetConnection())
             {

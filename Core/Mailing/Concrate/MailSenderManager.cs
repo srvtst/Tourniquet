@@ -6,28 +6,25 @@ using System.Net.Mail;
 namespace Core.Mailing.Concrate
 {
     public class MailSenderManager : IMailSender
-
     {
         IConfiguration _configuration;
         SmtpConfig _smtpConfig;
-        IMailMessage _mailMessage;
-        public MailSenderManager(IConfiguration configuration , IMailMessage mailMessage)
+        public MailSenderManager(IConfiguration configuration)
         {
             _configuration = configuration;
-            _mailMessage = mailMessage;
             _smtpConfig = _configuration.GetSection("Smtp").Get<SmtpConfig>();
         }
 
-        public async Task SendMail(IMailMessage mailMessage)
+        public async Task SendMail(MailMessage mailMessage)
         {
             var mailMessageData = new MailMessage
             {
-                Subject = _mailMessage.Subject,
-                Body = _mailMessage.Body,
-                From = new MailAddress(_mailMessage.From),
+                Subject = mailMessage.Subject,
+                Body = mailMessage.Body,
+                From = new MailAddress(""),
             };
 
-            mailMessageData.To.Add(_mailMessage.To);
+            mailMessageData.To.Add("");
 
             SmtpClient smtpClient = new SmtpClient
             {
