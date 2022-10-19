@@ -3,7 +3,10 @@ using Autofac.Extensions.DependencyInjection;
 using Business.DependencyResolvers.Autofac;
 using Core.Caching.Abstract;
 using Core.Caching.Concrate;
+using Core.RabbitMQ.Abstract;
+using Core.RabbitMQ.Concrate;
 using Core.Security.Jwt;
+using MassTransit;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using NLog;
 using NLog.Web;
@@ -15,6 +18,13 @@ IConfiguration configuration = new ConfigurationBuilder()
 var logger = LogManager.Setup().LoadConfigurationFromAppSettings().GetCurrentClassLogger();
 
 var builder = WebApplication.CreateBuilder(args);
+
+builder.Services.AddMassTransit(services =>
+{
+    services.AddScoped<IPublisherService , PublisherManager>();
+    services.AddScoped<IRabbitMQService , RabbitMQManager>();
+    services.AddScoped<IConsumerService, ConsumerManager>();
+});
 
 builder.Services.AddMemoryCache();
 builder.Services.AddSingleton<ICacheManager, MemoryCacheManager>();

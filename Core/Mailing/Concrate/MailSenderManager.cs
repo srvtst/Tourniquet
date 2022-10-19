@@ -1,12 +1,7 @@
 ﻿using Core.Mailing.Abstract;
 using Microsoft.Extensions.Configuration;
-using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.Net;
 using System.Net.Mail;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Core.Mailing.Concrate
 {
@@ -23,7 +18,7 @@ namespace Core.Mailing.Concrate
             _smtpConfig = _configuration.GetSection("Smtp").Get<SmtpConfig>();
         }
 
-        public async Task SendMailAsync(IMailMessage mailMessage)
+        public async Task SendMail(IMailMessage mailMessage)
         {
             var mailMessageData = new MailMessage
             {

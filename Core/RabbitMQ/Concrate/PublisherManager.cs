@@ -22,7 +22,6 @@ namespace Core.RabbitMQ.Concrate
         }
         //Enqueue : sıraya almak
         //queueName : Queue kuyrukta hangi isimde tutulacağı bilgisi operasyon istek zamanı gönderilebilir.
-        //queueDat : Herhangi bir tipte gönderilebilir where koşullaırına uyan
         public void Enqueue(Tourniquet tourniquet)
         {
             using (var connection = _rabbitMQService.GetConnection())

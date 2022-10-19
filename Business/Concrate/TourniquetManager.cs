@@ -13,11 +13,14 @@ namespace Business.Concrate
         ITourniquetDal _tourniquetDal;
         ICacheManager _cacheManager;
         ILogger<Tourniquet> _logger;
-        public TourniquetManager(ITourniquetDal tourniquetDal, ICacheManager cacheManager, ILogger<Tourniquet> logger)
+        IPublisherService _publisherService;
+        public TourniquetManager(ITourniquetDal tourniquetDal, ICacheManager cacheManager, ILogger<Tourniquet> logger , 
+            IPublisherService publisherService)
         {
             _tourniquetDal = tourniquetDal;
             _cacheManager = cacheManager;
             _logger = logger;
+            _publisherService = publisherService;
         }
 
         public void Entry(Tourniquet tourniquet)
@@ -31,6 +34,7 @@ namespace Business.Concrate
                 _cacheManager.Remove(key);
             }
             _tourniquetDal.Entry(tourniquet);
+            _publisherService.Enqueue(tourniquet);
             _logger.LogInformation("Turnikeden giriş yapıldı");
         }
 
@@ -43,6 +47,10 @@ namespace Business.Concrate
             var result = GetByTourniquet(tourniquet.Id);
             if (result != null)
             {
+                if (tourniquet.DateOfEntry.Hour - tourniquet.ExitDate.Hour > 8)
+                {
+                    _publisherService.Enqueue(tourniquet);
+                }
                 if (_cacheManager.IsThere(key) == true)
                 {
                     _cacheManager.Remove(key);

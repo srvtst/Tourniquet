@@ -1,25 +1,25 @@
-﻿using Core.RabbitMQ.Abstract;
+﻿using Core.Mailing.Abstract;
+using Core.RabbitMQ.Abstract;
 using Entities.Concrate;
+using MassTransit;
 using Newtonsoft.Json;
 using RabbitMQ.Client;
 using RabbitMQ.Client.Events;
-using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.Text;
-using System.Threading.Tasks;
 
 namespace Core.RabbitMQ.Concrate
 {
-    public class ConsumerManager : IConsumerService
+    public class ConsumerManager : IConsumerService, IConsumer
     {
         IRabbitMQService _rabbitMqService;
-        public ConsumerManager(IRabbitMQService rabbitMqService)
+        IMailSender _mailSender;
+        public ConsumerManager(IRabbitMQService rabbitMqService, IMailSender mailSender)
         {
             _rabbitMqService = rabbitMqService;
+            _mailSender = mailSender;
         }
 
-        public void Start(Tourniquet tourniquet)
+        public void Start(IMailMessage mailMessage)
         {
             using (var connection = _rabbitMqService.GetConnection())
             {
@@ -36,14 +36,15 @@ namespace Core.RabbitMQ.Concrate
                     consumer.Received += (model, ea) =>
                     {
                         var body = ea.Body;
-                        var message = JsonConvert.SerializeObject(body);
-                        tourniquet = JsonConvert.DeserializeObject<Tourniquet>(message);
+                        var message = Encoding.UTF8.GetBytes(JsonConvert.SerializeObject(mailMessage));
                     };
 
                     channel.BasicConsume(
                         queue: "Tourniquet", autoAck: true, consumer: consumer);
                 }
             }
+
+            _mailSender.SendMail(mailMessage);
         }
     }
 }

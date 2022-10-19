@@ -1,4 +1,5 @@
 ﻿using Core.RabbitMQ.Abstract;
+using Microsoft.Extensions.Configuration;
 using RabbitMQ.Client;
 using System;
 using System.Collections.Generic;
@@ -10,10 +11,12 @@ namespace Core.RabbitMQ.Concrate
 {
     public class RabbitMQManager : IRabbitMQService
     {
-        IRabbitMQConfiguration _rabbitMqConfiguration;
-        public RabbitMQManager(IRabbitMQConfiguration rabbitMqConfiguration)
+        IConfiguration _configuration { get; }
+        private RabbitConfiguration _rabbitConfiguration;
+        public RabbitMQManager(IConfiguration configuration)
         {
-            _rabbitMqConfiguration = rabbitMqConfiguration;
+            _configuration = configuration;
+            _rabbitConfiguration = _configuration.GetSection("RabbitMQ").Get<RabbitConfiguration>();
         }
 
         public IConnection GetConnection()
@@ -21,9 +24,10 @@ namespace Core.RabbitMQ.Concrate
             //rabbitmq hostuna bağlantı
             ConnectionFactory connectionFactory = new ConnectionFactory()
             {
-                HostName = _rabbitMqConfiguration.HostName,
-                UserName = _rabbitMqConfiguration.UserName,
-                Password = _rabbitMqConfiguration.Password
+                HostName = _rabbitConfiguration.HostName,
+                UserName = _rabbitConfiguration.UserName,
+                Password = _rabbitConfiguration.Password,
+                Port = _rabbitConfiguration.Port,
             };
 
             return connectionFactory.CreateConnection();

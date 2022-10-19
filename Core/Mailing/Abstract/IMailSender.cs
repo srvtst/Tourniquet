@@ -9,6 +9,6 @@ namespace Core.Mailing.Abstract
 {
     public interface IMailSender
     {
-        Task SendMailAsync(IMailMessage mailMessage);
+        Task SendMail(IMailMessage mailMessage);
     }
 }

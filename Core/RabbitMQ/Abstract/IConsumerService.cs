@@ -1,4 +1,5 @@
-﻿using Entities.Concrate;
+﻿using Core.Mailing.Abstract;
+using Entities.Concrate;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -9,6 +10,6 @@ namespace Core.RabbitMQ.Abstract
 {
     public interface IConsumerService
     {
-        void Start(Tourniquet tourniquet);
+        void Start(IMailMessage mailMessage);
     }
 }
