@@ -1,4 +1,5 @@
 ﻿using Core.Mailing.Abstract;
+using Entities.Concrate;
 using Microsoft.Extensions.Configuration;
 using System.Net;
 using System.Net.Mail;
@@ -30,9 +31,7 @@ namespace Core.Mailing.Concrate
             {
                 Host = _smtpConfig.Host,
                 Port = _smtpConfig.Port,
-                //ssl kullanıp kullanılmayacağını belirtiyoruz.
                 EnableSsl = _smtpConfig.UseSSL,
-                //mail gönderenin kimlik doğrulaması.
                 Credentials = new NetworkCredential(_smtpConfig.UserName, _smtpConfig.Password)
             };
             await smtpClient.SendMailAsync(mailMessageData);

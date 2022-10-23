@@ -21,8 +21,9 @@ var builder = WebApplication.CreateBuilder(args);
 
 builder.Services.AddMassTransit(services =>
 {
-    services.AddScoped<IPublisherService , PublisherManager>();
-    services.AddScoped<IRabbitMQService , RabbitMQManager>();
+    services.AddSingleton<IPublisherService , PublisherManager>();
+    services.AddSingleton<IRabbitMQService , RabbitMQManager>();
+    services.AddSingleton<IConsumerService, ConsumerManager>();
     services.AddConsumer<ConsumerManager>();
 });
 
@@ -34,7 +35,6 @@ builder.Host.UseNLog();
 
 builder.Services.AddHttpContextAccessor();
 
-//autofac ile bagimliliklari azaltiyorum.
 builder.Host.UseServiceProviderFactory(new AutofacServiceProviderFactory()).ConfigureContainer<ContainerBuilder>(builder =>
 {
     builder.RegisterModule(new AutofacBusinessModule());

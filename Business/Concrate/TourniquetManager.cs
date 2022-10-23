@@ -4,6 +4,7 @@ using Core.RabbitMQ.Abstract;
 using DataAccess.Abstract;
 using Entities.Concrate;
 using Microsoft.Extensions.Logging;
+using System.Net.Mail;
 using System.Reflection;
 
 namespace Business.Concrate

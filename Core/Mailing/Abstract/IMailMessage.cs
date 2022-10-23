@@ -8,7 +8,6 @@ namespace Core.Mailing.Abstract
 {
     public interface IMailMessage
     {
-        //e-posta iletisinin alıcılarını içeren adres koleksiyonu
         string To { get; }
         string From { get; }
         string Subject { get; }

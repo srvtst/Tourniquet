@@ -21,7 +21,6 @@ namespace Core.RabbitMQ.Concrate
 
         public IConnection GetConnection()
         {
-            //rabbitmq hostuna bağlantı
             ConnectionFactory connectionFactory = new ConnectionFactory()
             {
                 HostName = _rabbitConfiguration.HostName,
@@ -32,8 +31,6 @@ namespace Core.RabbitMQ.Concrate
 
             return connectionFactory.CreateConnection();
         }
-
-        //rabbitmq üzerinde yeni bir kanal yaratılır.
         public IModel GetModel(IConnection connection)
         {
             return connection.CreateModel();

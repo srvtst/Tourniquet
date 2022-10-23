@@ -13,7 +13,6 @@ namespace Core.Security.Hashing
         {
             using (var hmac = new HMACSHA512())
             {
-                //string verisine döndürme
                 passwordSalt = Convert.ToBase64String(hmac.Key);
                 passwordHash = Convert.ToBase64String(hmac.ComputeHash(Encoding.UTF8.GetBytes(password)));
             }
@@ -21,7 +20,6 @@ namespace Core.Security.Hashing
 
         public static bool VerifyPasswordHash(string password, string passwordSalt, string passwordHash)
         {
-            //string veriyi byte[] verisine döndürme
             byte[] salt = Convert.FromBase64String(passwordSalt);
             byte[] hash = Convert.FromBase64String(passwordHash);
             using (var hmac = new HMACSHA512(salt))
