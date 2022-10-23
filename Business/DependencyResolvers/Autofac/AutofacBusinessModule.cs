@@ -11,7 +11,6 @@ namespace Business.DependencyResolvers.Autofac
 {
     public class AutofacBusinessModule : Module
     {
-        //Inversion of Control (IoC) --> Dependency Injection (DI)
         protected override void Load(ContainerBuilder builder)
         {
             builder.RegisterType<PersonManager>().As<IPersonService>().SingleInstance();
