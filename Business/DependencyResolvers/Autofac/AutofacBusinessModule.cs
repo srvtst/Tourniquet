@@ -3,6 +3,8 @@ using Business.Abstract;
 using Business.Concrate;
 using Core.Mailing.Abstract;
 using Core.Mailing.Concrate;
+using Core.RabbitMQ.Abstract;
+using Core.RabbitMQ.Concrate;
 using Core.Security.Jwt;
 using DataAccess.Abstract;
 using DataAccess.Concrate;
@@ -19,6 +21,8 @@ namespace Business.DependencyResolvers.Autofac
             builder.RegisterType<EfTourniquetDal>().As<ITourniquetDal>().SingleInstance();
             builder.RegisterType<JwtHelper>().As<ITokenHelper>().SingleInstance();
             builder.RegisterType<MailSenderManager>().As<IMailSender>().SingleInstance();
+            builder.RegisterType<PublisherManager>().As<IPublisherService>().SingleInstance();
+            builder.RegisterType<RabbitMQManager>().As<IRabbitMQService>().SingleInstance();
         }
     }
 }

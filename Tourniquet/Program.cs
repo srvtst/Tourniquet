@@ -19,14 +19,6 @@ var logger = LogManager.Setup().LoadConfigurationFromAppSettings().GetCurrentCla
 
 var builder = WebApplication.CreateBuilder(args);
 
-builder.Services.AddMassTransit(services =>
-{
-    services.AddSingleton<IPublisherService , PublisherManager>();
-    services.AddSingleton<IRabbitMQService , RabbitMQManager>();
-    services.AddSingleton<IConsumerService, ConsumerManager>();
-    services.AddConsumer<ConsumerManager>();
-});
-
 builder.Services.AddMemoryCache();
 builder.Services.AddSingleton<ICacheManager, MemoryCacheManager>();
 

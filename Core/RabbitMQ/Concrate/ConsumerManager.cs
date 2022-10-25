@@ -10,7 +10,7 @@ using System.Text;
 
 namespace Core.RabbitMQ.Concrate
 {
-    public class ConsumerManager : IConsumerService, IConsumer
+    public class ConsumerManager : IConsumerService
     {
         IRabbitMQService _rabbitMqService;
         IMailSender _mailSender;

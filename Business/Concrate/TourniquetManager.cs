@@ -4,7 +4,6 @@ using Core.RabbitMQ.Abstract;
 using DataAccess.Abstract;
 using Entities.Concrate;
 using Microsoft.Extensions.Logging;
-using System.Net.Mail;
 using System.Reflection;
 
 namespace Business.Concrate
@@ -13,9 +12,9 @@ namespace Business.Concrate
     {
         ITourniquetDal _tourniquetDal;
         ICacheManager _cacheManager;
-        ILogger<Tourniquet> _logger;
+        ILogger<TourniquetManager> _logger;
         IPublisherService _publisherService;
-        public TourniquetManager(ITourniquetDal tourniquetDal, ICacheManager cacheManager, ILogger<Tourniquet> logger, IPublisherService publisherService)
+        public TourniquetManager(ITourniquetDal tourniquetDal, ICacheManager cacheManager, ILogger<TourniquetManager> logger, IPublisherService publisherService)
         {
             _tourniquetDal = tourniquetDal;
             _cacheManager = cacheManager;
