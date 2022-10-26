@@ -3,17 +3,10 @@ using Autofac.Extensions.DependencyInjection;
 using Business.DependencyResolvers.Autofac;
 using Core.Caching.Abstract;
 using Core.Caching.Concrate;
-using Core.RabbitMQ.Abstract;
-using Core.RabbitMQ.Concrate;
 using Core.Security.Jwt;
-using MassTransit;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using NLog;
 using NLog.Web;
-
-IConfiguration configuration = new ConfigurationBuilder()
-                            .AddJsonFile("appsettings.json")
-                            .Build();
 
 var logger = LogManager.Setup().LoadConfigurationFromAppSettings().GetCurrentClassLogger();
 
@@ -26,6 +19,8 @@ builder.Logging.ClearProviders();
 builder.Host.UseNLog();
 
 builder.Services.AddHttpContextAccessor();
+
+IConfiguration configuration = builder.Configuration.AddJsonFile("appsettings.json").Build();
 
 builder.Host.UseServiceProviderFactory(new AutofacServiceProviderFactory()).ConfigureContainer<ContainerBuilder>(builder =>
 {

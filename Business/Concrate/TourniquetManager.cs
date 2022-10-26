@@ -24,14 +24,6 @@ namespace Business.Concrate
 
         public void Entry(Tourniquet tourniquet)
         {
-            var method = MethodBase.GetCurrentMethod();
-            var methodName = string.Format($"{method.ReflectedType.FullName}.{method.Name}");
-            var parameters = method.GetParameters().Select(o => o?.ToString() ?? "<<null>>");
-            var key = $"{methodName}({parameters})";
-            if (_cacheManager.IsThere(key) == true)
-            {
-                _cacheManager.Remove(key);
-            }
             _tourniquetDal.Entry(tourniquet);
             _publisherService.Enqueue(tourniquet);
             _logger.LogInformation("Turnikeden giriş yapıldı");
@@ -39,24 +31,8 @@ namespace Business.Concrate
 
         public void Exit(Tourniquet tourniquet)
         {
-            var method = MethodBase.GetCurrentMethod();
-            var methodName = string.Format($"{method.ReflectedType.FullName}.{method.Name}");
-            var parameters = method.GetParameters().Select(o => o?.ToString() ?? "<<null>>");
-            var key = $"{methodName}({parameters})";
-            var result = GetByTourniquet(tourniquet.Id);
-            if (result != null)
-            {
-                if (tourniquet.DateOfEntry.Hour - tourniquet.ExitDate.Hour > 8)
-                {
-                    _publisherService.Enqueue(tourniquet);
-                }
-                if (_cacheManager.IsThere(key) == true)
-                {
-                    _cacheManager.Remove(key);
-                }
-                _tourniquetDal.Exit(tourniquet);
-                _logger.LogInformation("Turnikeden çıkış yapıldı");
-            }
+            _tourniquetDal.Exit(tourniquet); 
+            _logger.LogInformation("Turnikeden çıkış yapıldı");
         }
 
         public List<Tourniquet> GetAll()
