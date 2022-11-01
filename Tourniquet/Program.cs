@@ -13,7 +13,7 @@ var logger = LogManager.Setup().LoadConfigurationFromAppSettings().GetCurrentCla
 var builder = WebApplication.CreateBuilder(args);
 
 builder.Services.AddMemoryCache();
-builder.Services.AddSingleton<ICacheManager, MemoryCacheManager>();
+builder.Services.AddScoped<ICacheManager, MemoryCacheManager>();
 
 builder.Logging.ClearProviders();
 builder.Host.UseNLog();

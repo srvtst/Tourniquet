@@ -12,8 +12,8 @@ namespace Business.Concrate
     {
         ITokenHelper _tokenHelper;
         IPersonDal _personDal;
-        ILogger<Person> _logger;
-        public PersonManager(IPersonDal personDal, ITokenHelper tokenHelper, ILogger<Person> logger)
+        ILogger<PersonManager> _logger;
+        public PersonManager(IPersonDal personDal, ITokenHelper tokenHelper, ILogger<PersonManager> logger)
         {
             _tokenHelper = tokenHelper;
             _personDal = personDal;
