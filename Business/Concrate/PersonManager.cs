@@ -4,7 +4,6 @@ using Core.Security.Jwt;
 using DataAccess.Abstract;
 using Entities.Concrate;
 using Entities.Dto;
-using Microsoft.Extensions.Logging;
 
 namespace Business.Concrate
 {
@@ -12,12 +11,10 @@ namespace Business.Concrate
     {
         ITokenHelper _tokenHelper;
         IPersonDal _personDal;
-        ILogger<PersonManager> _logger;
-        public PersonManager(IPersonDal personDal, ITokenHelper tokenHelper, ILogger<PersonManager> logger)
+        public PersonManager(IPersonDal personDal, ITokenHelper tokenHelper)
         {
             _tokenHelper = tokenHelper;
             _personDal = personDal;
-            _logger = logger;
         }
 
         public void Add(Person person)

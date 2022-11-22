@@ -1,5 +1,7 @@
 ﻿using DataAccess.Abstract;
+using DataAccess.Concrate.Context;
 using Entities.Concrate;
+using Entities.Dto;
 
 namespace DataAccess.Concrate
 {
@@ -51,6 +53,23 @@ namespace DataAccess.Concrate
             using (TourniquetContext context = new TourniquetContext())
             {
                 return context.Set<Tourniquet>().Where(t => t.DateOfEntry.Month == dateTime.Month || t.ExitDate.Month == dateTime.Month).ToList();
+            }
+        }
+
+        public TourniquetPerson GetTourniquetByPerson(int personId)
+        {
+            using (TourniquetContext context = new TourniquetContext())
+            {
+                var result = from c in context.Tourniquets
+                             join p in context.Persons
+                             on c.PersonId equals p.Id
+                             select new TourniquetPerson
+                             {
+                                 Id = c.Id,
+                                 PersonId = p.Id,
+                                 Email = p.Email
+                             };
+                return result.ToList().FirstOrDefault(p=>p.PersonId == personId);
             }
         }
     }

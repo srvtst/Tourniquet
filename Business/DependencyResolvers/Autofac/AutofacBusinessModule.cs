@@ -1,10 +1,10 @@
 ﻿using Autofac;
 using Business.Abstract;
 using Business.Concrate;
-using Core.Mailing.Abstract;
-using Core.Mailing.Concrate;
-using Core.RabbitMQ.Abstract;
-using Core.RabbitMQ.Concrate;
+using Business.Mailing.Abstract;
+using Business.Mailing.Concrate;
+using Business.RabbitMQ.Abstract;
+using Business.RabbitMQ.Concrate;
 using Core.Security.Jwt;
 using DataAccess.Abstract;
 using DataAccess.Concrate;

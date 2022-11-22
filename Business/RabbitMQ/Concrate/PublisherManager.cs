@@ -1,16 +1,10 @@
-﻿using Core.RabbitMQ.Abstract;
+﻿using Business.RabbitMQ.Abstract;
 using Entities.Concrate;
 using Newtonsoft.Json;
 using RabbitMQ.Client;
-using System;
-using System.Collections;
-using System.Collections.Generic;
-using System.Linq;
-using System.Runtime.ConstrainedExecution;
 using System.Text;
-using System.Threading.Tasks;
 
-namespace Core.RabbitMQ.Concrate
+namespace Business.RabbitMQ.Concrate
 {
     public class PublisherManager : IPublisherService
     {

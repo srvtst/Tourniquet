@@ -1,4 +1,5 @@
 ﻿using DataAccess.Abstract;
+using DataAccess.Concrate.Context;
 using Entities.Concrate;
 
 namespace DataAccess.Concrate

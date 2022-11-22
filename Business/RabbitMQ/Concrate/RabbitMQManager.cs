@@ -1,13 +1,8 @@
-﻿using Core.RabbitMQ.Abstract;
+﻿using Business.RabbitMQ.Abstract;
 using Microsoft.Extensions.Configuration;
 using RabbitMQ.Client;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
-namespace Core.RabbitMQ.Concrate
+namespace Business.RabbitMQ.Concrate
 {
     public class RabbitMQManager : IRabbitMQService
     {

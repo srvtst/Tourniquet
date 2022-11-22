@@ -46,10 +46,17 @@ namespace Tourniquet.Controllers
             return Ok(result);
         }
 
-        [HttpGet("getall")]
+        [HttpGet("getAll")]
         public IActionResult GetAll()
         {
             var result = _tourniquetService.GetAll();
+            return Ok(result);
+        }
+
+        [HttpGet("getByTourniquet")]
+        public IActionResult GetByTourniquet(int id)
+        {
+            var result = _tourniquetService.GetByTourniquet(id);
             return Ok(result);
         }
     }

@@ -1,9 +1,5 @@
 ﻿using Entities.Concrate;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using Entities.Dto;
 
 namespace Business.Abstract
 {
@@ -11,8 +7,9 @@ namespace Business.Abstract
     {
         void Entry(Tourniquet tourniquet);
         void Exit(Tourniquet tourniquet);
-        Tourniquet GetByTourniquet(int id);
         List<Tourniquet> GetAll();
+        Tourniquet GetByTourniquet(int id);
+        TourniquetPerson GetTourniquetByPerson(int personId);
         List<Tourniquet> GetDayTourniquet(DateTime dateTime);
         List<Tourniquet> GetMonthTourniquet(DateTime dateTime);
     }

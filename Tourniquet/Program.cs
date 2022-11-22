@@ -1,8 +1,8 @@
 ﻿using Autofac;
 using Autofac.Extensions.DependencyInjection;
 using Business.DependencyResolvers.Autofac;
-using Core.Caching.Abstract;
-using Core.Caching.Concrate;
+using Core.CrossCuttingConcerns.Caching.Abstract;
+using Core.CrossCuttingConcerns.Caching.Concrate;
 using Core.Security.Jwt;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using NLog;
@@ -12,13 +12,12 @@ var logger = LogManager.Setup().LoadConfigurationFromAppSettings().GetCurrentCla
 
 var builder = WebApplication.CreateBuilder(args);
 
+builder.Services.AddHttpContextAccessor();
 builder.Services.AddMemoryCache();
 builder.Services.AddScoped<ICacheManager, MemoryCacheManager>();
 
 builder.Logging.ClearProviders();
 builder.Host.UseNLog();
-
-builder.Services.AddHttpContextAccessor();
 
 IConfiguration configuration = builder.Configuration.AddJsonFile("appsettings.json").Build();
 
@@ -45,13 +44,11 @@ builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
     });
 
 builder.Services.AddControllers();
-// Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
 var app = builder.Build();
 
-// Configure the HTTP request pipeline.
 if (app.Environment.IsDevelopment())
 {
     app.UseSwagger();

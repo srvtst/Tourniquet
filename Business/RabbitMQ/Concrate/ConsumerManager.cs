@@ -1,7 +1,5 @@
-﻿using Core.Mailing.Abstract;
-using Core.RabbitMQ.Abstract;
-using Entities.Concrate;
-using MassTransit;
+﻿using Business.Mailing.Abstract;
+using Business.RabbitMQ.Abstract;
 using Newtonsoft.Json;
 using RabbitMQ.Client;
 using RabbitMQ.Client.Events;
@@ -45,7 +43,7 @@ namespace Core.RabbitMQ.Concrate
                 }
             }
 
-            _mailSender.SendMail(mailMessage);
+            //_mailSender.SendMail();
         }
     }
 }

@@ -1,10 +1,9 @@
-﻿using Core.Mailing.Abstract;
-using Entities.Concrate;
+﻿using Business.Mailing.Abstract;
 using Microsoft.Extensions.Configuration;
-using System.Net;
 using System.Net.Mail;
+using System.Net;
 
-namespace Core.Mailing.Concrate
+namespace Business.Mailing.Concrate
 {
     public class MailSenderManager : IMailSender
     {
@@ -16,25 +15,27 @@ namespace Core.Mailing.Concrate
             _smtpConfig = _configuration.GetSection("Smtp").Get<SmtpConfig>();
         }
 
-        public async Task SendMail(MailMessage mailMessage)
+        public void SendMail(string fromAddress,  string body)
         {
             var mailMessageData = new MailMessage
             {
-                Subject = mailMessage.Subject,
-                Body = mailMessage.Body,
-                From = new MailAddress(""),
+                Subject = "Tourniquet",
+                Body = body,
+                From = new MailAddress(_smtpConfig.UserName),
             };
 
-            mailMessageData.To.Add("");
+            mailMessageData.To.Add(new MailAddress(fromAddress));
 
             SmtpClient smtpClient = new SmtpClient
             {
                 Host = _smtpConfig.Host,
                 Port = _smtpConfig.Port,
-                EnableSsl = _smtpConfig.UseSSL,
-                Credentials = new NetworkCredential(_smtpConfig.UserName, _smtpConfig.Password)
+                EnableSsl = _smtpConfig.EnableSsl,
+                Credentials = new NetworkCredential(_smtpConfig.UserName, _smtpConfig.Password),
+                UseDefaultCredentials = false,
             };
-            await smtpClient.SendMailAsync(mailMessageData);
+
+            smtpClient.Send(mailMessageData);
         }
     }
 }

@@ -1,10 +1,5 @@
 ﻿using Entities.Concrate;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Linq.Expressions;
-using System.Text;
-using System.Threading.Tasks;
+using Entities.Dto;
 
 namespace DataAccess.Abstract
 {
@@ -14,6 +9,7 @@ namespace DataAccess.Abstract
         void Exit(Tourniquet tourniquet);
         Tourniquet GetByTourniquet(int id);
         List<Tourniquet> GetAll();
+        TourniquetPerson GetTourniquetByPerson(int personId);
         List<Tourniquet> GetDayTourniquet(DateTime dateTime);
         List<Tourniquet> GetMonthTourniquet(DateTime dateTime);
     }

@@ -1,13 +1,7 @@
-﻿using Core.Caching.Abstract;
-using Entities.Concrate;
+﻿using Core.CrossCuttingConcerns.Caching.Abstract;
 using Microsoft.Extensions.Caching.Memory;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
-namespace Core.Caching.Concrate
+namespace Core.CrossCuttingConcerns.Caching.Concrate
 {
     public class MemoryCacheManager : ICacheManager
     {
