@@ -24,15 +24,15 @@ namespace Business.MessageBroker.RabbitMQ.Concrate
 
             var consumer = new EventingBasicConsumer(channel);
 
-            channel.BasicConsume("Tourniquet", false,consumer);
+            channel.BasicConsume("Tourniquet", false, consumer);
 
             consumer.Received += (object sender, BasicDeliverEventArgs e) =>
             {
                 var message = Encoding.UTF8.GetString(e.Body.ToArray());
-                channel.BasicAck(e.DeliveryTag,false);
+                channel.BasicAck(e.DeliveryTag, false);
             };
-            
-            _mailSender.SendMail("servet.soysal@hotmail.com", "consumerdan başarılı olarak mesaj okundu");
+
+            _mailSender.SendMail("servet.soysal@hotmail.com", "Consumer başarılı olarak okuma yaptı.");
         }
     }
 }

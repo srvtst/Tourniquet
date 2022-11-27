@@ -32,17 +32,22 @@ namespace Business.Concrate
         public void Entry(Tourniquet tourniquet)
         {
             _tourniquetDal.Entry(tourniquet);
-            //_publisherService.Publish(tourniquet);
+            _publisherService.Publish(tourniquet);
             _consumerService.Start();
-            //string fromAddress = GetTourniquetByPerson(tourniquet.PersonId).Email;
-            //_mailSender.SendMail(fromAddress, $"Turnikeden {tourniquet.DateOfEntry.ToString()} giriş yapıldı");
+            string fromAddress = GetTourniquetByPerson(tourniquet.PersonId).Email;
+            _mailSender.SendMail(fromAddress, $"Turnikeden {tourniquet.DateOfEntry.ToString()} giriş yapıldı");
             _logger.LogInformation("Turnikeden giriş yapıldı");
         }
 
         public void Exit(Tourniquet tourniquet)
         {
             _tourniquetDal.Exit(tourniquet);
-            _consumerService.Start();
+            if (tourniquet.ExitDate.Hour - tourniquet.DateOfEntry.Hour >= 8)
+            {
+                _publisherService.Publish(tourniquet);
+                Thread.Sleep(2000);
+                _consumerService.Start();
+            }
             //string fromAddress = GetTourniquetByPerson(tourniquet.PersonId).Email;
             //_mailSender.SendMail(fromAddress, $"Turnikeden {tourniquet.ExitDate.ToString()} çıkış yapıldı.");
             _logger.LogInformation("Turnikeden çıkış yapıldı");

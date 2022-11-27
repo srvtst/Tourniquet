@@ -40,6 +40,7 @@ namespace DataAccess.Concrate
                 return context.Set<Tourniquet>().SingleOrDefault(t => t.Id == id);
             }
         }
+
         public List<Tourniquet> GetDayTourniquet(DateTime dateTime)
         {
             using (TourniquetContext context = new TourniquetContext())
