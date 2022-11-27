@@ -1,6 +1,6 @@
 ﻿using RabbitMQ.Client;
 
-namespace Business.RabbitMQ.Abstract
+namespace Business.MessageBroker.RabbitMQ.Abstract
 {
     public interface IRabbitMQService
     {

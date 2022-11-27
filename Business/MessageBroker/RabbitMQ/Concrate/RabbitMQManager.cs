@@ -1,8 +1,8 @@
-﻿using Business.RabbitMQ.Abstract;
+﻿using Business.MessageBroker.RabbitMQ.Abstract;
 using Microsoft.Extensions.Configuration;
 using RabbitMQ.Client;
 
-namespace Business.RabbitMQ.Concrate
+namespace Business.MessageBroker.RabbitMQ.Concrate
 {
     public class RabbitMQManager : IRabbitMQService
     {
@@ -18,10 +18,7 @@ namespace Business.RabbitMQ.Concrate
         {
             ConnectionFactory connectionFactory = new ConnectionFactory()
             {
-                HostName = _rabbitConfiguration.HostName,
-                UserName = _rabbitConfiguration.UserName,
-                Password = _rabbitConfiguration.Password,
-                Port = _rabbitConfiguration.Port,
+                Uri = _rabbitConfiguration.Uri
             };
 
             return connectionFactory.CreateConnection();

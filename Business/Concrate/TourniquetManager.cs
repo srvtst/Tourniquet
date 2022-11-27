@@ -1,6 +1,6 @@
 ﻿using Business.Abstract;
 using Business.Mailing.Abstract;
-using Business.RabbitMQ.Abstract;
+using Business.MessageBroker.RabbitMQ.Abstract;
 using Core.CrossCuttingConcerns.Caching.Abstract;
 using DataAccess.Abstract;
 using Entities.Concrate;
@@ -17,30 +17,34 @@ namespace Business.Concrate
         IPublisherService _publisherService;
         IMailSender _mailSender;
         ICacheManager _cacheManager;
+        IConsumerService _consumerService;
         public TourniquetManager(ITourniquetDal tourniquetDal, ILogger<TourniquetManager> logger
-            , IPublisherService publisherService, IMailSender mailSender, ICacheManager cacheManager)
+            , IPublisherService publisherService, IMailSender mailSender, ICacheManager cacheManager, IConsumerService consumerService)
         {
             _tourniquetDal = tourniquetDal;
             _logger = logger;
             _publisherService = publisherService;
             _mailSender = mailSender;
             _cacheManager = cacheManager;
+            _consumerService = consumerService;
         }
 
         public void Entry(Tourniquet tourniquet)
         {
             _tourniquetDal.Entry(tourniquet);
-            _publisherService.Enqueue(tourniquet);
-            string fromAddress = GetTourniquetByPerson(tourniquet.PersonId).Email;
-            _mailSender.SendMail(fromAddress, $"Turnikeden {tourniquet.DateOfEntry.ToString()} giriş yapıldı");
+            //_publisherService.Publish(tourniquet);
+            _consumerService.Start();
+            //string fromAddress = GetTourniquetByPerson(tourniquet.PersonId).Email;
+            //_mailSender.SendMail(fromAddress, $"Turnikeden {tourniquet.DateOfEntry.ToString()} giriş yapıldı");
             _logger.LogInformation("Turnikeden giriş yapıldı");
         }
 
         public void Exit(Tourniquet tourniquet)
         {
             _tourniquetDal.Exit(tourniquet);
-            string fromAddress = GetTourniquetByPerson(tourniquet.PersonId).Email;
-            _mailSender.SendMail(fromAddress, $"Turnikeden {tourniquet.ExitDate.ToString()} çıkış yapıldı.");
+            _consumerService.Start();
+            //string fromAddress = GetTourniquetByPerson(tourniquet.PersonId).Email;
+            //_mailSender.SendMail(fromAddress, $"Turnikeden {tourniquet.ExitDate.ToString()} çıkış yapıldı.");
             _logger.LogInformation("Turnikeden çıkış yapıldı");
         }
 
