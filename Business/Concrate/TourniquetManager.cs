@@ -42,12 +42,9 @@ namespace Business.Concrate
         public void Exit(Tourniquet tourniquet)
         {
             _tourniquetDal.Exit(tourniquet);
-            if (tourniquet.ExitDate.Hour - tourniquet.DateOfEntry.Hour >= 8)
-            {
-                _publisherService.Publish(tourniquet);
-                Thread.Sleep(2000);
-                _consumerService.Start();
-            }
+            _publisherService.Publish(tourniquet);
+            _consumerService.Start();
+
             //string fromAddress = GetTourniquetByPerson(tourniquet.PersonId).Email;
             //_mailSender.SendMail(fromAddress, $"Turnikeden {tourniquet.ExitDate.ToString()} çıkış yapıldı.");
             _logger.LogInformation("Turnikeden çıkış yapıldı");
