@@ -1,16 +1,17 @@
-﻿using Entities.Concrate;
+﻿using Core.Utilities.Results;
+using Entities.Concrate;
 using Entities.Dto;
 
 namespace Business.Abstract
 {
     public interface ITourniquetService
     {
-        void Entry(Tourniquet tourniquet);
-        void Exit(Tourniquet tourniquet);
-        List<Tourniquet> GetAll();
-        Tourniquet GetByTourniquet(int id);
-        TourniquetPerson GetTourniquetByPerson(int personId);
-        List<Tourniquet> GetDayTourniquet(DateTime dateTime);
-        List<Tourniquet> GetMonthTourniquet(DateTime dateTime);
+        IResult Entry(Tourniquet tourniquet);
+        IResult Exit(Tourniquet tourniquet);
+        IDataResult<List<Tourniquet>> GetAll();
+        IDataResult<Tourniquet> GetByTourniquet(int id);
+        IDataResult<TourniquetPerson> GetTourniquetByPerson(int personId);
+        IDataResult<List<Tourniquet>> GetDayTourniquet(DateTime dateTime);
+        IDataResult<List<Tourniquet>> GetMonthTourniquet(DateTime dateTime);
     }
 }

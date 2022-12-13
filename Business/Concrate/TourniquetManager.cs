@@ -1,7 +1,9 @@
 ﻿using Business.Abstract;
+using Business.Contants;
 using Business.Mailing.Abstract;
 using Business.MessageBroker.RabbitMQ.Abstract;
 using Core.CrossCuttingConcerns.Caching.Abstract;
+using Core.Utilities.Results;
 using DataAccess.Abstract;
 using Entities.Concrate;
 using Entities.Dto;
@@ -29,28 +31,27 @@ namespace Business.Concrate
             _consumerService = consumerService;
         }
 
-        public void Entry(Tourniquet tourniquet)
+        public IResult Entry(Tourniquet tourniquet)
         {
             _tourniquetDal.Entry(tourniquet);
             _publisherService.Publish(tourniquet);
-            _consumerService.Start();
-            string fromAddress = GetTourniquetByPerson(tourniquet.PersonId).Email;
+            string fromAddress = GetTourniquetByPerson(tourniquet.PersonId).Data.Email;
             _mailSender.SendMail(fromAddress, $"Turnikeden {tourniquet.DateOfEntry.ToString()} giriş yapıldı");
+            _consumerService.Start();
             _logger.LogInformation("Turnikeden giriş yapıldı");
+            return new Result(true, Message.TourniquetEntry);
         }
 
-        public void Exit(Tourniquet tourniquet)
+        public IResult Exit(Tourniquet tourniquet)
         {
             _tourniquetDal.Exit(tourniquet);
             _publisherService.Publish(tourniquet);
-            _consumerService.Start();
-
-            //string fromAddress = GetTourniquetByPerson(tourniquet.PersonId).Email;
-            //_mailSender.SendMail(fromAddress, $"Turnikeden {tourniquet.ExitDate.ToString()} çıkış yapıldı.");
             _logger.LogInformation("Turnikeden çıkış yapıldı");
+            _consumerService.Start();
+            return new Result(true, Message.TourniquetExit);
         }
 
-        public List<Tourniquet> GetAll()
+        public IDataResult<List<Tourniquet>> GetAll()
         {
             var method = MethodBase.GetCurrentMethod();
             var methodName = string.Format($"{method.ReflectedType.FullName}.{method.Name}");
@@ -61,33 +62,37 @@ namespace Business.Concrate
                 var result = _tourniquetDal.GetAll();
                 _cacheManager.Add(key, result, 40);
                 _logger.LogInformation("Veri tabanından listeleme yapıldı.");
-                return result;
+                return new SuccessDataResult<List<Tourniquet>>(result, Message.TourniquetGetAll);
             }
             else
             {
                 _logger.LogInformation("Cache ten listeleme yapıldı.");
-                return _cacheManager.Get<List<Tourniquet>>(key);
+                return new SuccessDataResult<List<Tourniquet>>(_cacheManager.Get<List<Tourniquet>>(key));
             }
         }
 
-        public Tourniquet GetByTourniquet(int id)
+        public IDataResult<Tourniquet> GetByTourniquet(int id)
         {
-            return _tourniquetDal.GetByTourniquet(id);
+            var result = _tourniquetDal.GetByTourniquet(id);
+            return new SuccessDataResult<Tourniquet>(result);
         }
 
-        public List<Tourniquet> GetDayTourniquet(DateTime dateTime)
+        public IDataResult<List<Tourniquet>> GetDayTourniquet(DateTime dateTime)
         {
-            return _tourniquetDal.GetDayTourniquet(dateTime);
+            var result = _tourniquetDal.GetDayTourniquet(dateTime);
+            return new SuccessDataResult<List<Tourniquet>>(result, Message.TourniquetGetDay);
         }
 
-        public List<Tourniquet> GetMonthTourniquet(DateTime dateTime)
+        public IDataResult<List<Tourniquet>> GetMonthTourniquet(DateTime dateTime)
         {
-            return _tourniquetDal.GetMonthTourniquet(dateTime);
+            var result = _tourniquetDal.GetMonthTourniquet(dateTime);
+            return new SuccessDataResult<List<Tourniquet>>(result, Message.TourniquetGetMonth);
         }
 
-        public TourniquetPerson GetTourniquetByPerson(int personId)
+        public IDataResult<TourniquetPerson> GetTourniquetByPerson(int personId)
         {
-            return _tourniquetDal.GetTourniquetByPerson(personId);
+            var result = _tourniquetDal.GetTourniquetByPerson(personId);
+            return new SuccessDataResult<TourniquetPerson>(result);
         }
     }
 }

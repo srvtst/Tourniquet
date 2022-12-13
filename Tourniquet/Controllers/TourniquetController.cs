@@ -1,9 +1,11 @@
 ﻿using Business.Abstract;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Tourniquet.Controllers
 {
     [Route("api/[controller]")]
+    //[Authorize]
     [ApiController]
     public class TourniquetController : ControllerBase
     {
@@ -13,24 +15,20 @@ namespace Tourniquet.Controllers
             _tourniquetService = tourniquetService;
         }
 
-        //[Authorize]
         [HttpPost("entry")]
         public IActionResult Entry(Entities.Concrate.Tourniquet tourniquet)
         {
-            _tourniquetService.Entry(tourniquet);
-            return Ok("Turnikeden Giriş Yapıldı");
+            var result = _tourniquetService.Entry(tourniquet);
+            return Ok(result);
         }
 
-        //[Authorize]
         [HttpPost("exit")]
         public IActionResult Exit(Entities.Concrate.Tourniquet tourniquet)
         {
-            _tourniquetService.Exit(tourniquet);
-
-            return Ok("Turnikeden Çıkış Yapıldı");
+            var result = _tourniquetService.Exit(tourniquet);
+            return Ok(result);
         }
 
-        //[Authorize]
         [HttpGet("getDay")]
         public IActionResult GetDayTourniquet(DateTime dateTime)
         {
@@ -38,7 +36,6 @@ namespace Tourniquet.Controllers
             return Ok(result);
         }
 
-        //[Authorize]
         [HttpGet("getMonth")]
         public IActionResult GetMonthTourniquet(DateTime dateTime)
         {

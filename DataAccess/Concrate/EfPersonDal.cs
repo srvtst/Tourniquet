@@ -6,7 +6,6 @@ namespace DataAccess.Concrate
 {
     public class EfPersonDal : IPersonDal
     {
-
         public void Delete(Person person)
         {
             using (TourniquetContext context = new TourniquetContext())
@@ -15,6 +14,7 @@ namespace DataAccess.Concrate
                 context.SaveChanges();
             }
         }
+
         public Person GetByEmail(string email)
         {
             using (TourniquetContext context = new TourniquetContext())

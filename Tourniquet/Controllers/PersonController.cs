@@ -20,7 +20,7 @@ namespace Tourniquet.Controllers
         public IActionResult Register(UserForRegister userForRegister)
         {
             var userToRegister = _personService.Register(userForRegister, userForRegister.Password);
-            var result = _personService.CreateToken(userToRegister);
+            var result = _personService.CreateToken(userToRegister.Data);
             return Ok(result);
         }
 
@@ -28,7 +28,7 @@ namespace Tourniquet.Controllers
         public IActionResult Login(UserForLogin userForLogin)
         {
             var userToLogin = _personService.Login(userForLogin);
-            var result = _personService.CreateToken(userToLogin);
+            var result = _personService.CreateToken(userToLogin.Data);
             return Ok(result);
         }
 
@@ -36,8 +36,8 @@ namespace Tourniquet.Controllers
         [HttpPost("delete")]
         public IActionResult Delete(Person person)
         {
-            _personService.Delete(person);
-            return Ok("Kullanıcı Başarılı Olarak Sistemden Silinmiştir.");
+            var result = _personService.Delete(person);
+            return Ok(result);
         }
     }
 }

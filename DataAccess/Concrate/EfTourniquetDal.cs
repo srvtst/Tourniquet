@@ -70,7 +70,7 @@ namespace DataAccess.Concrate
                                  PersonId = p.Id,
                                  Email = p.Email
                              };
-                return result.ToList().FirstOrDefault(p=>p.PersonId == personId);
+                return result.ToList().FirstOrDefault(p => p.PersonId == personId);
             }
         }
     }

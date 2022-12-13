@@ -1,6 +1,8 @@
 ﻿using Business.Abstract;
+using Business.Contants;
 using Core.Security.Hashing;
 using Core.Security.Jwt;
+using Core.Utilities.Results;
 using DataAccess.Abstract;
 using Entities.Concrate;
 using Entities.Dto;
@@ -17,28 +19,30 @@ namespace Business.Concrate
             _personDal = personDal;
         }
 
-        public void Add(Person person)
+        public IResult Add(Person person)
         {
             _personDal.Add(person);
+            return new Result(true, Message.PersonAdded);
         }
 
-        public AccessToken CreateToken(Person person)
+        public IDataResult<AccessToken> CreateToken(Person person)
         {
             var token = _tokenHelper.CreateToken(person);
-            return token;
+            return new SuccessDataResult<AccessToken>(token);
         }
 
-        public void Delete(Person person)
+        public IResult Delete(Person person)
         {
             _personDal.Delete(person);
+            return new Result(true, Message.PersonDeleted);
         }
 
-        public Person GetByEmail(string email)
+        public IDataResult<Person> GetByEmail(string email)
         {
-            return _personDal.GetByEmail(email);
+            return new SuccessDataResult<Person>(_personDal.GetByEmail(email), Message.PersonGetByMail);
         }
 
-        public Person Login(UserForLogin userForLogin)
+        public IDataResult<Person> Login(UserForLogin userForLogin)
         {
             var userToCheck = _personDal.GetByEmail(userForLogin.Email);
             if (userToCheck != null)
@@ -49,14 +53,14 @@ namespace Business.Concrate
                 }
                 else
                 {
-                    return userToCheck;
+                    return new SuccessDataResult<Person>(userToCheck, Message.PersonLogin);
                 }
             }
             else
-                throw new Exception("Kullanıcı sistemde mevcut değil.");
+                return new ErrorDataResult<Person>("Kullanıcı sistemde mevcut değil.");
         }
 
-        public Person Register(UserForRegister userForRegister, string password)
+        public IDataResult<Person> Register(UserForRegister userForRegister, string password)
         {
             string passwordSalt, passwordHash;
             HashingHelper.CreatePasswordHash(password, out passwordHash, out passwordSalt);
@@ -69,14 +73,14 @@ namespace Business.Concrate
                 PasswordHash = passwordHash,
                 PasswordSalt = passwordSalt
             };
-
             _personDal.Add(person);
-            return person;
+            return new SuccessDataResult<Person>(person, Message.PersonRegister);
         }
 
-        public void Update(Person person)
+        public IResult Update(Person person)
         {
             _personDal.Update(person);
+            return new Result(true, Message.PersonDeleted);
         }
     }
 }

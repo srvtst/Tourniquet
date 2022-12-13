@@ -1,4 +1,5 @@
 ﻿using Core.Security.Jwt;
+using Core.Utilities.Results;
 using Entities.Concrate;
 using Entities.Dto;
 
@@ -6,12 +7,12 @@ namespace Business.Abstract
 {
     public interface IPersonService
     {
-        Person Login(UserForLogin userForLogin);
-        Person Register(UserForRegister userForRegister, string password);
-        AccessToken CreateToken(Person person);
-        Person GetByEmail(string email);
-        void Add(Person person);
-        void Update(Person person);
-        void Delete(Person person);
+        IDataResult<Person> Login(UserForLogin userForLogin);
+        IDataResult<Person> Register(UserForRegister userForRegister, string password);
+        IDataResult<AccessToken> CreateToken(Person person);
+        IDataResult<Person> GetByEmail(string email);
+        IResult Add(Person person);
+        IResult Update(Person person);
+        IResult Delete(Person person);
     }
 }
