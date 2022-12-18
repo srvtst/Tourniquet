@@ -1,8 +1,8 @@
 ﻿using DataAccess.Abstract;
-using DataAccess.Concrate.Context;
-using Entities.Concrate;
+using DataAccess.Concrete.Context;
+using Entities.Concrete;
 
-namespace DataAccess.Concrate
+namespace DataAccess.Concrete
 {
     public class EfPersonDal : IPersonDal
     {

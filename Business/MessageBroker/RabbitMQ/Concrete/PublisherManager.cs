@@ -1,11 +1,11 @@
 ﻿using Business.MessageBroker.RabbitMQ.Abstract;
-using Entities.Concrate;
+using Entities.Concrete;
 using Microsoft.Extensions.Logging;
 using RabbitMQ.Client;
 using System.Text;
 using System.Text.Json;
 
-namespace Business.MessageBroker.RabbitMQ.Concrate
+namespace Business.MessageBroker.RabbitMQ.Concrete
 {
     public class PublisherManager : IPublisherService
     {

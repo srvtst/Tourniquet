@@ -1,13 +1,13 @@
 ﻿using Autofac;
 using Business.Abstract;
-using Business.Concrate;
+using Business.Concrete;
 using Business.Mailing.Abstract;
-using Business.Mailing.Concrate;
+using Business.Mailing.Concrete;
 using Business.MessageBroker.RabbitMQ.Abstract;
-using Business.MessageBroker.RabbitMQ.Concrate;
+using Business.MessageBroker.RabbitMQ.Concrete;
 using Core.Security.Jwt;
 using DataAccess.Abstract;
-using DataAccess.Concrate;
+using DataAccess.Concrete;
 
 namespace Business.DependencyResolvers.Autofac
 {

@@ -1,9 +1,9 @@
 ﻿using DataAccess.Abstract;
-using DataAccess.Concrate.Context;
-using Entities.Concrate;
+using DataAccess.Concrete.Context;
+using Entities.Concrete;
 using Entities.Dto;
 
-namespace DataAccess.Concrate
+namespace DataAccess.Concrete
 {
     public class EfTourniquetDal : ITourniquetDal
     {

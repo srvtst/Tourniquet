@@ -1,4 +1,4 @@
-﻿using Entities.Concrate;
+﻿using Entities.Concrete;
 using Microsoft.Extensions.Configuration;
 using System.IdentityModel.Tokens.Jwt;
 

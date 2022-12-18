@@ -2,7 +2,7 @@
 using Autofac.Extensions.DependencyInjection;
 using Business.DependencyResolvers.Autofac;
 using Core.CrossCuttingConcerns.Caching.Abstract;
-using Core.CrossCuttingConcerns.Caching.Concrate;
+using Core.CrossCuttingConcerns.Caching.Concrete;
 using Core.Security.Jwt;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using NLog;
@@ -17,16 +17,17 @@ builder.Services.AddMemoryCache();
 builder.Services.AddScoped<ICacheManager, MemoryCacheManager>();
 
 builder.Logging.ClearProviders();
+
 builder.Host.UseNLog();
 
-IConfiguration configuration = builder.Configuration.AddJsonFile("appsettings.json").Build();
+builder.Configuration.AddJsonFile("appsettings.json").Build();
 
 builder.Host.UseServiceProviderFactory(new AutofacServiceProviderFactory()).ConfigureContainer<ContainerBuilder>(builder =>
 {
     builder.RegisterModule(new AutofacBusinessModule());
 });
 
-var tokenOptions = configuration.GetSection("TokenOptions").Get<TokenOptions>();
+var tokenOptions = builder.Configuration.GetSection("TokenOptions").Get<TokenOptions>();
 
 builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
     .AddJwtBearer(options =>

@@ -4,7 +4,7 @@ using RabbitMQ.Client;
 using RabbitMQ.Client.Events;
 using System.Text;
 
-namespace Business.MessageBroker.RabbitMQ.Concrate
+namespace Business.MessageBroker.RabbitMQ.Concrete
 {
     public class ConsumerManager : IConsumerService
     {

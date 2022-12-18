@@ -16,14 +16,14 @@ namespace Tourniquet.Controllers
         }
 
         [HttpPost("entry")]
-        public IActionResult Entry(Entities.Concrate.Tourniquet tourniquet)
+        public IActionResult Entry(Entities.Concrete.Tourniquet tourniquet)
         {
             var result = _tourniquetService.Entry(tourniquet);
             return Ok(result);
         }
 
         [HttpPost("exit")]
-        public IActionResult Exit(Entities.Concrate.Tourniquet tourniquet)
+        public IActionResult Exit(Entities.Concrete.Tourniquet tourniquet)
         {
             var result = _tourniquetService.Exit(tourniquet);
             return Ok(result);

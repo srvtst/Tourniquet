@@ -1,7 +1,7 @@
 ﻿using Core.CrossCuttingConcerns.Caching.Abstract;
 using Microsoft.Extensions.Caching.Memory;
 
-namespace Core.CrossCuttingConcerns.Caching.Concrate
+namespace Core.CrossCuttingConcerns.Caching.Concrete
 {
     public class MemoryCacheManager : ICacheManager
     {

@@ -1,4 +1,4 @@
-﻿using Entities.Concrate;
+﻿using Entities.Concrete;
 
 namespace Business.MessageBroker.RabbitMQ.Abstract
 {

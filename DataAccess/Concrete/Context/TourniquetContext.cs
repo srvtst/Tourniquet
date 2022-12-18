@@ -1,7 +1,7 @@
-﻿using Entities.Concrate;
+﻿using Entities.Concrete;
 using Microsoft.EntityFrameworkCore;
 
-namespace DataAccess.Concrate.Context
+namespace DataAccess.Concrete.Context
 {
     public class TourniquetContext : DbContext
     {

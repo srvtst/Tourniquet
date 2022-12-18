@@ -1,4 +1,4 @@
-﻿namespace Business.MessageBroker.RabbitMQ.Concrate
+﻿namespace Business.MessageBroker.RabbitMQ.Concrete
 {
     public class RabbitConfiguration
     {

@@ -1,4 +1,4 @@
-﻿namespace Business.Mailing.Concrate
+﻿namespace Business.Mailing.Concrete
 {
     public class SmtpConfig
     {

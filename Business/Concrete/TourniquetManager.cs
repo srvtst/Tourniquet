@@ -5,12 +5,12 @@ using Business.MessageBroker.RabbitMQ.Abstract;
 using Core.CrossCuttingConcerns.Caching.Abstract;
 using Core.Utilities.Results;
 using DataAccess.Abstract;
-using Entities.Concrate;
+using Entities.Concrete;
 using Entities.Dto;
 using Microsoft.Extensions.Logging;
 using System.Reflection;
 
-namespace Business.Concrate
+namespace Business.Concrete
 {
     public class TourniquetManager : ITourniquetService
     {

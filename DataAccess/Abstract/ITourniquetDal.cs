@@ -1,4 +1,4 @@
-﻿using Entities.Concrate;
+﻿using Entities.Concrete;
 using Entities.Dto;
 
 namespace DataAccess.Abstract

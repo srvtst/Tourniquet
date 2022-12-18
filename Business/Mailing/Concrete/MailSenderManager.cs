@@ -3,7 +3,7 @@ using Microsoft.Extensions.Configuration;
 using System.Net.Mail;
 using System.Net;
 
-namespace Business.Mailing.Concrate
+namespace Business.Mailing.Concrete
 {
     public class MailSenderManager : IMailSender
     {

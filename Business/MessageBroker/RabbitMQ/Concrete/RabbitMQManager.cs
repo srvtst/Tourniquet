@@ -2,7 +2,7 @@
 using Microsoft.Extensions.Configuration;
 using RabbitMQ.Client;
 
-namespace Business.MessageBroker.RabbitMQ.Concrate
+namespace Business.MessageBroker.RabbitMQ.Concrete
 {
     public class RabbitMQManager : IRabbitMQService
     {

@@ -4,10 +4,10 @@ using Core.Security.Hashing;
 using Core.Security.Jwt;
 using Core.Utilities.Results;
 using DataAccess.Abstract;
-using Entities.Concrate;
+using Entities.Concrete;
 using Entities.Dto;
 
-namespace Business.Concrate
+namespace Business.Concrete
 {
     public class PersonManager : IPersonService
     {

@@ -1,6 +1,6 @@
 ﻿using Entities.Abstract;
 
-namespace Entities.Concrate
+namespace Entities.Concrete
 {
     public class Person : IEntity
     {
